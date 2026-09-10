@@ -330,10 +330,27 @@ state.saveSpeakingRecordings=state.saveSpeakingRecordings!==false;
 state.speakingRecordings=state.speakingRecordings||[];
 
 /* Firebase: paste your Web App config here before GitHub upload, OR paste it in Parent Dashboard. */
-const BUILT_IN_FIREBASE_CONFIG={
-  // apiKey:"...", authDomain:"...firebaseapp.com", projectId:"...",
-  // storageBucket:"...firebasestorage.app", messagingSenderId:"...", appId:"..."
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyACgYpAm4oXh3norF98VCbbqHngb0Y5y0M",
+  authDomain: "linguaquest-6496d.firebaseapp.com",
+  projectId: "linguaquest-6496d",
+  storageBucket: "linguaquest-6496d.firebasestorage.app",
+  messagingSenderId: "374683258724",
+  appId: "1:374683258724:web:72a5b63cd9b057b1a77471",
+  measurementId: "G-CD3MP5CESE"
 };
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 let fbApp=null,fbAuth=null,fbDb=null,fbStorage=null,fbUser=null,fbUnsub=null,cloudApplying=false,cloudTimer=null;
 const audioCache={};
 const LISTENING_TEXT={a1:"B",a2:"cat",m1:"What is your name?",c1:"What color is a strawberry?",an1:"Which animal says meow?",f1:"I like pizza.",s1:"Open your book.",h1:"The book is on the table.",cl1:"I am wearing a shirt.",sh1:"How much is it?",p1:"Do you want to play on Saturday?",tr1:"Where is the bathroom?"};
