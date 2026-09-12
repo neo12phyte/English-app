@@ -1,0 +1,1142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#6C5CE7">
+<title>LinguaQuest 親子英語 · Family English Adventure</title>
+<style>
+:root{
+  --bg:#f7f7fb; --card:#ffffff; --ink:#1d2440; --muted:#6f7690;
+  --primary:#6c5ce7; --primary2:#8b7cf6; --accent:#ffb703; --good:#19b37d;
+  --bad:#ef476f; --blue:#4ea8de; --orange:#ff8a4c; --border:#e8e9f2;
+  --shadow:0 14px 32px rgba(55,48,107,.10); --radius:24px;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; color:var(--ink); background:
+  radial-gradient(circle at 10% 0%, #ede9ff 0, transparent 28%),
+  radial-gradient(circle at 90% 10%, #fff0d4 0, transparent 25%), var(--bg);
+  font-family:Inter,ui-rounded,"SF Pro Rounded","Segoe UI",system-ui,-apple-system,sans-serif;
+}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.app{min-height:100vh;display:grid;grid-template-columns:260px 1fr}
+.sidebar{
+  padding:26px 18px; background:rgba(255,255,255,.82); backdrop-filter:blur(14px);
+  border-right:1px solid var(--border); position:sticky; top:0; height:100vh;
+}
+.brand{display:flex;align-items:center;gap:12px;padding:4px 8px 24px}
+.brandMark{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--primary),#9b5de5); color:#fff;font-size:27px;box-shadow:var(--shadow)}
+.brand h1{font-size:18px;margin:0}.brand small{color:var(--muted)}
+.nav{display:grid;gap:8px}
+.nav button{
+  width:100%; border:0; background:transparent; color:var(--muted); padding:13px 14px;
+  border-radius:16px; text-align:left; font-weight:750; display:flex; gap:11px;align-items:center
+}
+.nav button.active,.nav button:hover{background:#f0edff;color:var(--primary)}
+.sideBottom{position:absolute;bottom:22px;left:18px;right:18px}
+.profileMini{padding:12px;border:1px solid var(--border);border-radius:18px;background:#fff;display:flex;align-items:center;gap:10px}
+.avatar{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-size:24px;background:#eee9ff}
+.main{padding:26px 32px 70px;max-width:1400px;width:100%;margin:auto}
+.topbar{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:22px}
+.greeting h2{margin:0 0 6px;font-size:28px}.greeting p{margin:0;color:var(--muted)}
+.topstats{display:flex;gap:10px;flex-wrap:wrap}
+.pill{background:#fff;border:1px solid var(--border);border-radius:999px;padding:10px 14px;font-weight:800;box-shadow:0 6px 18px rgba(0,0,0,.04)}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px}
+.hero{grid-column:span 8;min-height:280px;background:linear-gradient(135deg,#6250dc,#8a76f3);color:#fff;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.10);right:-40px;top:-35px}
+.hero .eyebrow{opacity:.83;font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.hero h3{font-size:34px;max-width:560px;margin:14px 0 10px}.hero p{max-width:600px;line-height:1.6;opacity:.93}
+.primary{border:0;border-radius:16px;padding:13px 18px;background:#fff;color:var(--primary);font-weight:900}
+.secondary{border:1px solid var(--border);border-radius:14px;padding:11px 15px;background:#fff;color:var(--ink);font-weight:800}
+.heroActions{display:flex;gap:10px;margin-top:22px}
+.companionCard{grid-column:span 4;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.mascot{font-size:80px;filter:drop-shadow(0 8px 10px rgba(0,0,0,.12));animation:float 3s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-7px)}}
+.speech{margin-top:10px;background:#fff9df;border:1px solid #ffe58f;border-radius:18px;padding:14px 16px;line-height:1.5}
+.sectionTitle{display:flex;justify-content:space-between;align-items:end;margin:28px 0 12px}
+.sectionTitle h3{margin:0;font-size:22px}.sectionTitle p{margin:4px 0 0;color:var(--muted);font-size:14px}
+.skill{grid-column:span 3}
+.skillTop{display:flex;justify-content:space-between;align-items:center}.skillIcon{font-size:27px}
+.bar{height:10px;background:#eef0f6;border-radius:999px;overflow:hidden;margin-top:12px}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--blue));border-radius:999px}
+.worlds{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.world{position:relative;border:1px solid var(--border);background:#fff;border-radius:20px;padding:18px;text-align:left;min-height:150px;box-shadow:0 8px 20px rgba(0,0,0,.04)}
+.world:hover{transform:translateY(-2px);transition:.2s;box-shadow:var(--shadow)}
+.world.locked{opacity:.56;filter:saturate(.7)}
+.world .tag{font-size:12px;font-weight:900;color:var(--primary);background:#f0edff;padding:6px 9px;border-radius:999px;display:inline-block}
+.world h4{margin:13px 0 6px;font-size:18px}.world p{color:var(--muted);margin:0;line-height:1.45;font-size:14px}
+.world .emoji{font-size:35px;position:absolute;right:16px;top:16px}
+.questList,.rewardGrid,.childGrid{display:grid;gap:14px}
+.quest{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
+.quest h4{margin:0 0 4px}.quest p{margin:0;color:var(--muted);font-size:14px}
+.coin{font-weight:900;color:#b56b00}.xp{font-weight:900;color:var(--primary)}
+.rewardGrid{grid-template-columns:repeat(3,1fr)}
+.reward{padding:18px;border:1px solid var(--border);border-radius:20px;background:#fff}
+.reward .art{font-size:46px}.reward h4{margin:10px 0 4px}.reward p{color:var(--muted);min-height:40px;margin:0 0 12px}
+.price{display:flex;justify-content:space-between;align-items:center}
+.badge{display:inline-block;padding:5px 8px;border-radius:999px;font-weight:850;font-size:12px;background:#f2f4f8;color:#606980}
+.tabstrip{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}.tabstrip button{border:1px solid var(--border);background:#fff;padding:9px 12px;border-radius:999px;font-weight:800;color:var(--muted)}.tabstrip button.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.hidden{display:none!important}
+.modalBackdrop{position:fixed;inset:0;background:rgba(25,25,46,.52);backdrop-filter:blur(4px);display:grid;place-items:center;padding:18px;z-index:50}
+.modal{width:min(760px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:30px;padding:24px;box-shadow:0 30px 80px rgba(0,0,0,.25)}
+.modalHead{display:flex;justify-content:space-between;align-items:center;gap:12px}.close{border:0;background:#f2f3f8;border-radius:50%;width:40px;height:40px}
+.lessonMascot{display:grid;grid-template-columns:90px 1fr;gap:14px;align-items:center;background:#fff9df;border:1px solid #ffe6a7;border-radius:20px;padding:14px;margin:18px 0}
+.lessonMascot .mascot{font-size:58px}.lessonMascot p{margin:3px 0;line-height:1.5}
+.taskBox{padding:20px;border:1px solid var(--border);border-radius:22px;background:#fbfbfe}
+.choices{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
+.choice{padding:14px;border-radius:15px;background:#fff;border:2px solid var(--border);font-weight:800}
+.choice:hover{border-color:#bdb4ff}.choice.good{border-color:var(--good);background:#ecfbf5}.choice.bad{border-color:var(--bad);background:#fff0f3}
+.inputRow{display:flex;gap:10px;margin-top:14px}.inputRow input{flex:1;padding:13px 14px;border:2px solid var(--border);border-radius:14px;outline:none}.inputRow input:focus{border-color:var(--primary)}
+.actionRow{display:flex;justify-content:space-between;gap:10px;margin-top:18px}
+.bigPrimary{border:0;border-radius:15px;padding:13px 18px;background:var(--primary);color:#fff;font-weight:900}
+.progressLine{height:10px;background:#eceef5;border-radius:999px;overflow:hidden;margin:14px 0}.progressLine i{height:100%;display:block;background:linear-gradient(90deg,var(--primary),#19b37d)}
+.confetti{font-size:50px;text-align:center}
+.parentGrid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.table{width:100%;border-collapse:collapse}.table th,.table td{padding:12px 10px;border-bottom:1px solid var(--border);text-align:left;font-size:14px}.table th{color:var(--muted)}
+.switcher{display:flex;gap:8px;flex-wrap:wrap}.childBtn{border:1px solid var(--border);background:#fff;border-radius:14px;padding:10px 12px;font-weight:800}.childBtn.active{border-color:var(--primary);background:#f0edff;color:var(--primary)}
+.notice{padding:14px 16px;border-radius:16px;background:#eef8ff;color:#23658f;border:1px solid #cfeaff}
+.goal{background:linear-gradient(135deg,#fff4d6,#fff);border:1px solid #ffe1a0}
+.goal .bar i{background:linear-gradient(90deg,#ffb703,#ff8a4c)}
+.footer{color:var(--muted);font-size:12px;margin-top:28px;text-align:center}
+@media(max-width:980px){
+ .app{grid-template-columns:1fr}.sidebar{position:fixed;z-index:30;bottom:0;top:auto;height:auto;width:100%;padding:8px 10px;border-right:0;border-top:1px solid var(--border)}
+ .brand,.sideBottom{display:none}.nav{grid-template-columns:repeat(5,1fr)}.nav button{justify-content:center;text-align:center;font-size:11px;flex-direction:column;gap:3px;padding:7px 4px}.main{padding:22px 18px 100px}
+ .hero,.companionCard{grid-column:span 12}.skill{grid-column:span 6}.worlds,.rewardGrid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:620px){
+ .topbar{align-items:flex-start;flex-direction:column}.greeting h2{font-size:24px}.hero h3{font-size:27px}.skill{grid-column:span 12}.worlds,.rewardGrid,.parentGrid{grid-template-columns:1fr}.choices{grid-template-columns:1fr}.lessonMascot{grid-template-columns:64px 1fr}.lessonMascot .mascot{font-size:46px}
+}
+
+/* V2 lively game layer */
+:root{--primary:#7c3aed;--primary2:#a855f7;--accent:#ffca3a;--pink:#ff5da2;--green:#23c483;--blue:#45a3ff}
+body{background:radial-gradient(circle at 7% 3%,rgba(255,202,58,.20),transparent 22%),radial-gradient(circle at 92% 5%,rgba(255,93,162,.16),transparent 25%),radial-gradient(circle at 40% 100%,rgba(69,163,255,.14),transparent 32%),#f8f7ff}
+.brandMark{background:linear-gradient(135deg,var(--primary),var(--pink));box-shadow:0 12px 28px rgba(124,58,237,.28);position:relative;overflow:hidden}
+.brandMark:after{content:"";position:absolute;width:24px;height:70px;background:rgba(255,255,255,.25);transform:rotate(30deg);left:-30px;animation:shine 4s infinite}@keyframes shine{0%,65%{left:-30px}85%,100%{left:75px}}
+.nav button{transition:.18s}.nav button:hover{transform:translateX(3px)}
+.hero{background:radial-gradient(circle at 90% 15%,rgba(255,255,255,.18),transparent 27%),linear-gradient(135deg,#6836d8,#8d52ee 57%,#cb59ca)}
+.hero:before{content:"✨";font-size:88px;position:absolute;right:34px;bottom:18px;opacity:.18;transform:rotate(12deg)}
+.world,.reward{transition:.2s}.world:hover,.reward:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.rewardGrid{grid-template-columns:repeat(4,1fr)}
+.cloudOnline{color:#117a58}.cloudLocal{color:#805b12}
+.cloudBox{background:linear-gradient(135deg,#f0edff,#fff);border:1px solid #dcd4ff}
+.formField{display:grid;gap:6px;margin:12px 0}.formField label{font-size:13px;font-weight:850;color:var(--muted)}
+.formField input,.formField textarea,.formField select{width:100%;padding:13px 14px;border:2px solid var(--border);border-radius:15px;outline:none;background:#fff}
+.recordBox{margin-top:14px;padding:14px;border-radius:18px;border:1px solid #dfe4f4;background:#f8faff}
+.recordPulse{display:inline-block;width:11px;height:11px;border-radius:50%;background:var(--bad);margin-right:7px;animation:pulse 1s infinite}@keyframes pulse{50%{opacity:.35;transform:scale(.75)}}
+.audioPlayer{width:100%;margin-top:12px}
+.notice.good{background:#ecfbf5;color:#147253;border-color:#c9f1df}.notice.warn{background:#fff8e2;color:#7f5b13;border-color:#ffe4a0}
+.starBurst{position:fixed;pointer-events:none;font-size:24px;z-index:100;animation:burst .8s forwards}@keyframes burst{to{transform:translateY(-80px) rotate(80deg) scale(1.8);opacity:0}}
+@media(max-width:1100px){.rewardGrid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:980px){.rewardGrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.rewardGrid{grid-template-columns:1fr}}
+
+
+/* Login-first family setup */
+.authGate{
+  position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:24px;
+  background:
+    radial-gradient(circle at 15% 10%,rgba(255,202,58,.28),transparent 24%),
+    radial-gradient(circle at 85% 12%,rgba(255,93,162,.22),transparent 26%),
+    radial-gradient(circle at 50% 100%,rgba(69,163,255,.20),transparent 34%),
+    linear-gradient(145deg,#f7f2ff,#fffaf0);
+}
+.authShell{width:min(940px,100%);display:grid;grid-template-columns:1.05fr .95fr;background:#fff;border:1px solid var(--border);border-radius:34px;overflow:hidden;box-shadow:0 30px 90px rgba(75,48,132,.20)}
+.authArt{min-height:570px;padding:42px;background:linear-gradient(145deg,#6f3ce0,#a653e7 58%,#f15aa5);color:#fff;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between}
+.authArt:before,.authArt:after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.12)}
+.authArt:before{width:270px;height:270px;right:-80px;top:-65px}.authArt:after{width:210px;height:210px;left:-70px;bottom:20px}
+.authDragon{font-size:120px;filter:drop-shadow(0 15px 18px rgba(0,0,0,.18));animation:float 3s ease-in-out infinite;position:relative;z-index:1}
+.authArt h1{font-size:42px;line-height:1.08;margin:12px 0}.authArt p{line-height:1.65;opacity:.94;max-width:430px}
+.authFeatures{display:grid;gap:10px;position:relative;z-index:1}.authFeature{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.18);padding:11px 13px;border-radius:15px;font-weight:800}
+.authForm{padding:42px;display:flex;flex-direction:column;justify-content:center}
+.authForm h2{font-size:29px;margin:0 0 8px}.authForm>p{color:var(--muted);line-height:1.55;margin:0 0 18px}
+.authError{display:none;padding:12px 14px;border-radius:14px;background:#fff0f3;border:1px solid #ffcbd7;color:#a82e4a;margin:12px 0;line-height:1.45}
+.authError.show{display:block}.authActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}
+.authHint{font-size:12px;color:var(--muted);margin-top:16px;line-height:1.5}
+.avatarChoices{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 18px}.avatarChoice{font-size:30px;width:58px;height:58px;border-radius:18px;border:2px solid var(--border);background:#fff}.avatarChoice.active{border-color:var(--primary);background:#f1eaff;box-shadow:0 7px 18px rgba(124,58,237,.14)}
+.loadingDots{font-size:18px;letter-spacing:6px;animation:pulse 1.1s infinite}
+@media(max-width:760px){.authShell{grid-template-columns:1fr}.authArt{min-height:250px;padding:28px}.authDragon{font-size:75px}.authArt h1{font-size:31px}.authFeatures{display:none}.authForm{padding:28px}}
+
+
+.vocabStrip{margin:0 0 16px;padding:14px;border:1px solid #e8e3ff;border-radius:18px;background:linear-gradient(135deg,#f6f2ff,#fff)}
+.vocabStripTop{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:9px}
+.vocabStripTop b{font-size:14px}.vocabStripTop span{font-size:12px;color:var(--muted);font-weight:800}
+.vocabChips{display:flex;gap:7px;flex-wrap:wrap}.vocabChip{padding:6px 9px;border-radius:999px;background:#fff;border:1px solid #ddd5ff;font-size:13px;font-weight:800}
+.arrangeZone{min-height:58px;border:2px dashed #d8d4ea;border-radius:16px;padding:10px;display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:13px 0;background:#fff}
+.arrangeZone.empty:before{content:"Tap the words below…";color:var(--muted);font-size:14px}
+.arrangeChip{border:1px solid #d8d4ea;background:#fff;padding:9px 11px;border-radius:13px;font-weight:800}.arrangeChip:disabled{opacity:.3}
+.curriculumStats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:15px 0 22px}
+.curriculumStat{background:#fff;border:1px solid var(--border);border-radius:18px;padding:14px;box-shadow:var(--shadow2)}
+.curriculumStat strong{font-size:24px;display:block}.curriculumStat small{color:var(--muted);font-weight:700}
+.dayBadge{display:inline-flex;gap:7px;align-items:center;padding:6px 10px;border-radius:999px;background:#fff;color:var(--primary);font-size:12px;font-weight:900}
+@media(max-width:720px){.curriculumStats{grid-template-columns:repeat(2,1fr)}}
+
+
+/* Bilingual + visual learning upgrade */
+.nav button span{line-height:1.1}.nav button span small{display:block;font-size:10px;font-weight:700;color:inherit;opacity:.72;margin-top:2px}
+.bilingual{display:block}.bilingual small{display:block;color:var(--muted);font-weight:700;margin-top:2px}
+.visualStrip{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:10px;margin:14px 0}
+.visualCard{background:linear-gradient(180deg,#fff,#f8f5ff);border:2px solid #ece6ff;border-radius:20px;padding:13px 8px;text-align:center;min-height:128px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 7px 18px rgba(76,50,124,.06)}
+.visualCard.small{min-height:112px;padding:10px 6px}.visualEmoji{font-size:48px;line-height:1.1;filter:drop-shadow(0 5px 5px rgba(0,0,0,.10))}
+.visualCard.small .visualEmoji{font-size:40px}.visualEn{font-weight:900;margin-top:7px;font-size:15px}.visualZh{font-size:12px;color:var(--muted);margin-top:2px;font-weight:700}
+.letterStage{display:grid;grid-template-columns:1.1fr .9fr;gap:16px;align-items:stretch;margin:12px 0}
+.letterPanel{background:linear-gradient(145deg,#efe9ff,#fff);border:2px solid #ded4ff;border-radius:25px;min-height:225px;display:grid;place-items:center;text-align:center;padding:18px}
+.bigLetters{font-size:94px;font-weight:1000;letter-spacing:10px;color:var(--primary);line-height:1}
+.letterLabels{display:flex;justify-content:center;gap:24px;color:var(--muted);font-size:12px;font-weight:900;margin-top:10px}
+.soundPill{display:inline-block;background:#fff4c8;border:1px solid #ffdc69;border-radius:999px;padding:8px 12px;font-weight:900;margin-top:12px}
+.pictureHero{background:linear-gradient(145deg,#fff7d7,#fff);border:2px solid #ffe594;border-radius:25px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;text-align:center}
+.pictureHero .heroEmoji{font-size:92px;line-height:1;filter:drop-shadow(0 8px 8px rgba(0,0,0,.12))}
+.pictureHero h3{margin:10px 0 2px;font-size:24px}.pictureHero p{margin:0;color:var(--muted);font-weight:750}
+.imageChoices{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:15px}
+.imageChoice{border:2px solid var(--border);background:#fff;border-radius:22px;padding:10px;transition:.18s}.imageChoice:hover{border-color:#bbaeff;transform:translateY(-2px)}
+.imageChoice.selected{border-color:var(--primary);background:#f5f0ff;box-shadow:0 8px 20px rgba(124,58,237,.12)}
+.imageChoice .visualCard{border:0;box-shadow:none;background:transparent;min-height:120px}
+.alphaReviewBoard{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.alphaTile{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(145deg,#f0ebff,#fff);border:2px solid #e1d8ff;color:var(--primary);font-weight:1000;font-size:25px}
+.traceWrap{position:relative;height:235px;border-radius:24px;border:2px dashed #cfc5ee;background:#fdfcff;overflow:hidden;touch-action:none;margin-top:14px}
+.traceGhost{position:absolute;inset:0;display:grid;place-items:center;font-size:112px;font-weight:1000;color:#ebe6f8;letter-spacing:28px;pointer-events:none;user-select:none}
+#traceCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:2;touch-action:none}
+.traceTools{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:9px;color:var(--muted);font-size:13px}
+.chantCard{background:linear-gradient(135deg,#fff1c7,#ffe8f4);border:2px solid #ffdb85;border-radius:25px;padding:24px;text-align:center;margin-top:12px}
+.chantCard .beat{font-size:32px;font-weight:1000;line-height:1.45}.chantCard .zhHint{color:var(--muted);font-weight:750;margin-top:7px}
+.taskBilingualHint{color:var(--muted);font-size:13px;margin:-4px 0 12px}
+.vocabStripTop b::after{content:" · 今日學習";font-size:12px;color:var(--muted);font-weight:700}
+.hero .dayBadge{margin-bottom:8px}
+@media(max-width:700px){.letterStage{grid-template-columns:1fr}.bigLetters{font-size:78px}.pictureHero .heroEmoji{font-size:75px}.imageChoices{grid-template-columns:1fr 1fr}.traceGhost{font-size:86px}}
+
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brandMark">龍</div><div><h1>LinguaQuest</h1><small>Family English Adventure</small></div></div>
+    <nav class="nav">
+      <button class="active" data-page="home">🏠 <span>首頁<small>Home</small></span></button>
+      <button data-page="learn">🗺️ <span>學習<small>Learn</small></span></button>
+      <button data-page="quests">✅ <span>任務<small>Quests</small></span></button>
+      <button data-page="rewards">🎁 <span>獎勵<small>Rewards</small></span></button>
+      <button data-page="parent">👨‍👩‍👧 <span>家長<small>Parent</small></span></button>
+    </nav>
+    <div class="sideBottom"><div class="profileMini"><div class="avatar" id="sideAvatar">🧒</div><div><strong id="sideName">Learner</strong><br><small id="sideLevel">Beginner Explorer</small></div></div></div>
+  </aside>
+
+  <main class="main">
+    <section id="page-home" class="page"></section>
+    <section id="page-learn" class="page hidden"></section>
+    <section id="page-quests" class="page hidden"></section>
+    <section id="page-rewards" class="page hidden"></section>
+    <section id="page-parent" class="page hidden"></section>
+  </main>
+</div>
+
+<div id="modalRoot"></div>
+
+
+<script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-app-check-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.18.0/firebase-storage-compat.js"></script>
+<script>
+const APP_VERSION = 4;
+const defaultState = {
+  version:APP_VERSION,
+  activeChild:null,
+  parentPin:"2468",
+  familyInitialized:false,
+  children:{},
+  chores:[
+    {id:"bed",name:"Make your bed",zh:"整理床鋪",coins:3,category:"Responsibility",freq:"Daily"},
+    {id:"bag",name:"Prepare school bag",zh:"整理書包",coins:5,category:"Responsibility",freq:"Daily"},
+    {id:"dishes",name:"Clear your dishes",zh:"把自己的餐具收好",coins:5,category:"Responsibility",freq:"Daily"},
+    {id:"toys",name:"Put toys away",zh:"把玩具收好",coins:5,category:"Responsibility",freq:"Daily"},
+    {id:"table",name:"Help set the table",zh:"幫忙擺餐桌",coins:7,category:"Contribution",freq:"Daily"},
+    {id:"trash",name:"Take out the trash",zh:"幫忙倒垃圾",coins:8,category:"Contribution",freq:"Mon/Wed/Fri"},
+    {id:"laundry",name:"Fold clothes",zh:"幫忙摺衣服",coins:10,category:"Contribution",freq:"Weekly"},
+    {id:"room",name:"Clean bedroom",zh:"整理自己的房間",coins:15,category:"Contribution",freq:"Weekly"},
+    {id:"family",name:"Help clean a shared area",zh:"幫忙整理家裡的公共空間",coins:15,category:"Contribution",freq:"Weekly"},
+    {id:"plants",name:"Water the plants",zh:"幫忙澆花",coins:7,category:"Contribution",freq:"2–3× weekly"},
+    {id:"pet",name:"Help care for a pet",zh:"幫忙照顧寵物",coins:8,category:"Contribution",freq:"Daily"},
+    {id:"helpmeal",name:"Help prepare a meal",zh:"幫忙準備餐點",coins:12,category:"Contribution",freq:"Optional"},
+    {id:"special",name:"30-minute family job",zh:"完成 30 分鐘家庭任務",coins:25,category:"Contribution",freq:"Optional"}
+  ],
+  rewardClaims:[]
+};
+
+
+/* ===================== 320-DAY CURRICULUM =====================
+   32 worlds × 10 daily sessions = 320 days.
+   Beginner days contain 5 interactive tasks.
+   Intermediate/Advanced days contain 6 interactive tasks.
+   Approx. 1,700 total task interactions.
+*/
+const CURRICULUM_DATA = [{"id":"alphabet_ai","level":"Beginner","emoji":"🔤","name":"Alphabet A–I","desc":"Learn one letter at a time: uppercase, lowercase, letter name, sound, picture word and rhyme","days":[{"kind":"letter","title":"Letter A / a","letter":"A","lower":"a","sound":"/æ/","example":"apple","zhWord":"蘋果","emoji":"🍎","rhyme":"A, A, apple! /æ/ /æ/ apple!","vocab":["apple","ant","alligator"],"sentence":"A is for apple."},{"kind":"letter","title":"Letter B / b","letter":"B","lower":"b","sound":"/b/","example":"ball","zhWord":"球","emoji":"⚽","rhyme":"B, B, ball! /b/ /b/ ball!","vocab":["ball","book","banana"],"sentence":"B is for ball."},{"kind":"letter","title":"Letter C / c","letter":"C","lower":"c","sound":"/k/","example":"cat","zhWord":"貓","emoji":"🐱","rhyme":"C, C, cat! /k/ /k/ cat!","vocab":["cat","car","cup"],"sentence":"C is for cat."},{"kind":"letter","title":"Letter D / d","letter":"D","lower":"d","sound":"/d/","example":"dog","zhWord":"狗","emoji":"🐶","rhyme":"D, D, dog! /d/ /d/ dog!","vocab":["dog","duck","door"],"sentence":"D is for dog."},{"kind":"letter","title":"Letter E / e","letter":"E","lower":"e","sound":"/ɛ/","example":"egg","zhWord":"蛋","emoji":"🥚","rhyme":"E, E, egg! /ɛ/ /ɛ/ egg!","vocab":["egg","elephant","elbow"],"sentence":"E is for egg."},{"kind":"letter","title":"Letter F / f","letter":"F","lower":"f","sound":"/f/","example":"fish","zhWord":"魚","emoji":"🐟","rhyme":"F, F, fish! /f/ /f/ fish!","vocab":["fish","fan","frog"],"sentence":"F is for fish."},{"kind":"letter","title":"Letter G / g","letter":"G","lower":"g","sound":"/g/","example":"goat","zhWord":"山羊","emoji":"🐐","rhyme":"G, G, goat! /g/ /g/ goat!","vocab":["goat","game","gift"],"sentence":"G is for goat."},{"kind":"letter","title":"Letter H / h","letter":"H","lower":"h","sound":"/h/","example":"hat","zhWord":"帽子","emoji":"🎩","rhyme":"H, H, hat! /h/ /h/ hat!","vocab":["hat","hand","house"],"sentence":"H is for hat."},{"kind":"letter","title":"Letter I / i","letter":"I","lower":"i","sound":"/ɪ/","example":"igloo","zhWord":"冰屋","emoji":"🧊","rhyme":"I, I, igloo! /ɪ/ /ɪ/ igloo!","vocab":["igloo","insect","ink"],"sentence":"I is for igloo."},{"kind":"alphaReview","title":"A–I Review","letters":["A","B","C","D","E","F","G","H","I"],"vocab":["apple","ball","cat","dog","egg"],"sentence":"I know letters A to I."}]},{"id":"alphabet_jr","level":"Beginner","emoji":"🔡","name":"Alphabet J–R","desc":"Continue one letter each day with pictures, sounds, tracing and speaking","days":[{"kind":"letter","title":"Letter J / j","letter":"J","lower":"j","sound":"/dʒ/","example":"juice","zhWord":"果汁","emoji":"🧃","rhyme":"J, J, juice! /dʒ/ /dʒ/ juice!","vocab":["juice","jam","jump"],"sentence":"J is for juice."},{"kind":"letter","title":"Letter K / k","letter":"K","lower":"k","sound":"/k/","example":"kite","zhWord":"風箏","emoji":"🪁","rhyme":"K, K, kite! /k/ /k/ kite!","vocab":["kite","king","key"],"sentence":"K is for kite."},{"kind":"letter","title":"Letter L / l","letter":"L","lower":"l","sound":"/l/","example":"lion","zhWord":"獅子","emoji":"🦁","rhyme":"L, L, lion! /l/ /l/ lion!","vocab":["lion","lamp","leaf"],"sentence":"L is for lion."},{"kind":"letter","title":"Letter M / m","letter":"M","lower":"m","sound":"/m/","example":"moon","zhWord":"月亮","emoji":"🌙","rhyme":"M, M, moon! /m/ /m/ moon!","vocab":["moon","milk","mouse"],"sentence":"M is for moon."},{"kind":"letter","title":"Letter N / n","letter":"N","lower":"n","sound":"/n/","example":"nose","zhWord":"鼻子","emoji":"👃","rhyme":"N, N, nose! /n/ /n/ nose!","vocab":["nose","net","nest"],"sentence":"N is for nose."},{"kind":"letter","title":"Letter O / o","letter":"O","lower":"o","sound":"/ɑ/","example":"octopus","zhWord":"章魚","emoji":"🐙","rhyme":"O, O, octopus! /ɑ/ /ɑ/ octopus!","vocab":["octopus","orange","ox"],"sentence":"O is for octopus."},{"kind":"letter","title":"Letter P / p","letter":"P","lower":"p","sound":"/p/","example":"pig","zhWord":"豬","emoji":"🐷","rhyme":"P, P, pig! /p/ /p/ pig!","vocab":["pig","pen","pizza"],"sentence":"P is for pig."},{"kind":"letter","title":"Letter Q / q","letter":"Q","lower":"q","sound":"/kw/","example":"queen","zhWord":"女王","emoji":"👑","rhyme":"Q, Q, queen! /kw/ /kw/ queen!","vocab":["queen","quiz","quilt"],"sentence":"Q is for queen."},{"kind":"letter","title":"Letter R / r","letter":"R","lower":"r","sound":"/r/","example":"rabbit","zhWord":"兔子","emoji":"🐰","rhyme":"R, R, rabbit! /r/ /r/ rabbit!","vocab":["rabbit","red","rain"],"sentence":"R is for rabbit."},{"kind":"alphaReview","title":"J–R Review","letters":["J","K","L","M","N","O","P","Q","R"],"vocab":["juice","kite","lion","moon","nose"],"sentence":"I know letters J to R."}]},{"id":"alphabet_sz","level":"Beginner","emoji":"🌟","name":"Alphabet S–Z","desc":"Finish the alphabet and review uppercase, lowercase and beginning sounds","days":[{"kind":"letter","title":"Letter S / s","letter":"S","lower":"s","sound":"/s/","example":"sun","zhWord":"太陽","emoji":"☀️","rhyme":"S, S, sun! /s/ /s/ sun!","vocab":["sun","sock","star"],"sentence":"S is for sun."},{"kind":"letter","title":"Letter T / t","letter":"T","lower":"t","sound":"/t/","example":"tiger","zhWord":"老虎","emoji":"🐯","rhyme":"T, T, tiger! /t/ /t/ tiger!","vocab":["tiger","toy","tree"],"sentence":"T is for tiger."},{"kind":"letter","title":"Letter U / u","letter":"U","lower":"u","sound":"/ʌ/","example":"umbrella","zhWord":"雨傘","emoji":"☂️","rhyme":"U, U, umbrella! /ʌ/ /ʌ/ umbrella!","vocab":["umbrella","up","under"],"sentence":"U is for umbrella."},{"kind":"letter","title":"Letter V / v","letter":"V","lower":"v","sound":"/v/","example":"van","zhWord":"廂型車","emoji":"🚐","rhyme":"V, V, van! /v/ /v/ van!","vocab":["van","violin","vest"],"sentence":"V is for van."},{"kind":"letter","title":"Letter W / w","letter":"W","lower":"w","sound":"/w/","example":"whale","zhWord":"鯨魚","emoji":"🐳","rhyme":"W, W, whale! /w/ /w/ whale!","vocab":["whale","water","window"],"sentence":"W is for whale."},{"kind":"letter","title":"Letter X / x","letter":"X","lower":"x","sound":"/ks/","example":"box","zhWord":"盒子","emoji":"📦","rhyme":"X, X, box! /ks/ /ks/ box!","vocab":["box","fox","six"],"sentence":"X is for box."},{"kind":"letter","title":"Letter Y / y","letter":"Y","lower":"y","sound":"/j/","example":"yo-yo","zhWord":"溜溜球","emoji":"🪀","rhyme":"Y, Y, yo-yo! /j/ /j/ yo-yo!","vocab":["yo-yo","yellow","yogurt"],"sentence":"Y is for yo-yo."},{"kind":"letter","title":"Letter Z / z","letter":"Z","lower":"z","sound":"/z/","example":"zebra","zhWord":"斑馬","emoji":"🦓","rhyme":"Z, Z, zebra! /z/ /z/ zebra!","vocab":["zebra","zoo","zero"],"sentence":"Z is for zebra."},{"kind":"alphaReview","title":"S–Z Review","letters":["S","T","U","V","W","X","Y","Z"],"vocab":["sun","tiger","umbrella","van","whale"],"sentence":"I know letters S to Z."},{"kind":"alphaReview","title":"A–Z Big Review","letters":["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"],"vocab":["apple","cat","fish","moon","sun"],"sentence":"I know the alphabet A to Z."}]},{"id":"alphabet_mastery","level":"Beginner","emoji":"🏅","name":"Alphabet Mastery","desc":"Ten gentle review days before phonics: letter pairs, order, sounds and picture matching","days":[{"kind":"alphaReview","title":"Capital Letters A–F","letters":["A","B","C","D","E","F"],"vocab":["apple","ball","cat","dog","egg"],"sentence":"These are capital letters."},{"kind":"alphaReview","title":"Small Letters a–f","letters":["A","B","C","D","E","F"],"focus":"lower","vocab":["apple","ball","cat","dog","egg"],"sentence":"These are small letters."},{"kind":"alphaReview","title":"Capital Letters G–L","letters":["G","H","I","J","K","L"],"vocab":["goat","hat","igloo","juice","kite"],"sentence":"I can find capital letters."},{"kind":"alphaReview","title":"Small Letters g–l","letters":["G","H","I","J","K","L"],"focus":"lower","vocab":["goat","hat","igloo","juice","kite"],"sentence":"I can find small letters."},{"kind":"alphaReview","title":"Letters M–R","letters":["M","N","O","P","Q","R"],"vocab":["moon","nose","octopus","pig","queen"],"sentence":"I can match big and small letters."},{"kind":"alphaReview","title":"Letters S–Z","letters":["S","T","U","V","W","X","Y","Z"],"vocab":["sun","tiger","umbrella","van","whale"],"sentence":"I can hear letter sounds."},{"kind":"alphaReview","title":"Beginning Sounds A–I","letters":["A","B","C","D","E","F","G","H","I"],"vocab":["apple","ball","cat","dog","egg"],"sentence":"I can hear beginning sounds."},{"kind":"alphaReview","title":"Beginning Sounds J–R","letters":["J","K","L","M","N","O","P","Q","R"],"vocab":["juice","kite","lion","moon","nose"],"sentence":"I can hear beginning sounds."},{"kind":"alphaReview","title":"Beginning Sounds S–Z","letters":["S","T","U","V","W","X","Y","Z"],"vocab":["sun","tiger","umbrella","van","whale"],"sentence":"I can hear beginning sounds."},{"kind":"alphaReview","title":"Alphabet Mastery Challenge","letters":["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"],"vocab":["apple","fish","kite","rabbit","zebra"],"sentence":"I can name, match and say the alphabet."}]},{"id":"short_vowels","level":"Beginner","emoji":"🧩","name":"Short Vowels & CVC","desc":"Blend consonant-vowel-consonant words with short a, e, i, o, u","days":[{"title":"Short A","vocab":["cat","bat","map","jam","hand"],"sentence":"The cat has a map."},{"title":"-at & -an","vocab":["hat","mat","fan","man","pan"],"sentence":"The man has a hat."},{"title":"Short E","vocab":["bed","red","pen","hen","leg"],"sentence":"The red pen is on the bed."},{"title":"-et & -en","vocab":["net","pet","ten","hen","jet"],"sentence":"The pet is by the net."},{"title":"Short I","vocab":["sit","pig","fin","lip","six"],"sentence":"The pig can sit."},{"title":"-it & -in","vocab":["hit","kit","pin","win","bin"],"sentence":"The pin is in the bin."},{"title":"Short O","vocab":["hot","dog","box","top","fox"],"sentence":"The dog is on the box."},{"title":"-ot & -op","vocab":["pot","dot","hop","mop","top"],"sentence":"The mop is by the pot."},{"title":"Short U","vocab":["sun","cup","bus","run","duck"],"sentence":"The duck can run."},{"title":"Vowel Review","vocab":["cat","bed","pig","dog","sun"],"sentence":"The pig sits in the sun."}]},{"id":"digraphs_blends","level":"Beginner","emoji":"🎧","name":"Digraphs & Blends","desc":"Hear and read sh, ch, th, wh, ng, ck and common consonant blends","days":[{"title":"SH","vocab":["ship","shop","fish","shoe","shell"],"sentence":"The ship is near the shore."},{"title":"CH","vocab":["chair","cheese","chicken","lunch","beach"],"sentence":"The chicken is on the chair."},{"title":"TH","vocab":["three","thumb","think","bath","teeth"],"sentence":"I have three teeth to brush."},{"title":"WH","vocab":["what","when","where","white","wheel"],"sentence":"What is on the wheel?"},{"title":"NG","vocab":["sing","song","ring","king","long"],"sentence":"The king can sing a song."},{"title":"CK","vocab":["duck","sock","black","clock","snack"],"sentence":"The black clock is on the wall."},{"title":"L Blends","vocab":["blue","clap","flag","glass","plane"],"sentence":"The blue plane can fly."},{"title":"R Blends","vocab":["bread","crab","frog","green","train"],"sentence":"The green frog sees the train."},{"title":"S Blends","vocab":["star","school","spoon","stop","snake"],"sentence":"The snake is by the star."},{"title":"Final Blends","vocab":["hand","milk","desk","lamp","tent"],"sentence":"The lamp is on the desk."}]},{"id":"magic_e","level":"Beginner","emoji":"✨","name":"Long Vowels & Magic E","desc":"Contrast short and long vowels using silent-e patterns","days":[{"title":"A_E","vocab":["cake","name","game","lake","plane"],"sentence":"The cake is on the plate."},{"title":"I_E","vocab":["bike","five","kite","time","smile"],"sentence":"I ride my bike at five."},{"title":"O_E","vocab":["home","nose","rope","stone","phone"],"sentence":"My phone is at home."},{"title":"U_E","vocab":["cube","cute","tune","mule","June"],"sentence":"The cute mule sees a cube."},{"title":"Long E","vocab":["he","she","me","we","these"],"sentence":"She can see me."},{"title":"Short vs Long A","vocab":["cap","cape","tap","tape","mad"],"sentence":"The cape is by the cap."},{"title":"Short vs Long I","vocab":["kit","kite","fin","fine","rid"],"sentence":"The kite is fine."},{"title":"Short vs Long O","vocab":["hop","hope","not","note","rod"],"sentence":"I hope you read the note."},{"title":"Short vs Long U","vocab":["cub","cube","cut","cute","tub"],"sentence":"The cub is cute."},{"title":"Magic E Review","vocab":["cake","bike","home","cube","smile"],"sentence":"I smile when I ride my bike home."}]},{"id":"vowel_teams","level":"Beginner","emoji":"🌊","name":"Vowel Teams & R-Controlled","desc":"Practice common vowel teams, diphthongs and r-controlled vowels","days":[{"title":"AI / AY","vocab":["rain","train","paint","play","day"],"sentence":"We play on a rainy day."},{"title":"EE / EA","vocab":["see","green","tree","eat","beach"],"sentence":"I see a green tree."},{"title":"OA / OW","vocab":["boat","coat","road","snow","yellow"],"sentence":"The yellow boat is on the water."},{"title":"OO","vocab":["moon","food","room","book","look"],"sentence":"Look at the book in my room."},{"title":"AR","vocab":["car","star","park","farm","arm"],"sentence":"The car is near the park."},{"title":"OR","vocab":["fork","horse","short","storm","morning"],"sentence":"The horse runs in the morning."},{"title":"ER / IR / UR","vocab":["her","bird","girl","turn","purple"],"sentence":"The girl sees a purple bird."},{"title":"OI / OY","vocab":["coin","point","voice","boy","toy"],"sentence":"The boy has a toy coin."},{"title":"OU / OW","vocab":["house","mouse","cloud","cow","town"],"sentence":"The cow is near the house."},{"title":"Vowel Team Review","vocab":["rain","green","boat","bird","house"],"sentence":"A green bird flies over the house."}]},{"id":"sight_words_1","level":"Beginner","emoji":"👀","name":"High-Frequency Words I","desc":"Read and use essential function words automatically","days":[{"title":"People Words","vocab":["I","you","he","she","we"],"sentence":"I can see you."},{"title":"Articles","vocab":["a","an","the","this","that"],"sentence":"This is a red ball."},{"title":"Be Verbs","vocab":["am","is","are","was","were"],"sentence":"She is my friend."},{"title":"Have & Do","vocab":["have","has","do","does","did"],"sentence":"I have a new book."},{"title":"Can & Will","vocab":["can","cannot","will","would","could"],"sentence":"We can play today."},{"title":"Place Words","vocab":["in","on","at","under","near"],"sentence":"The cat is under the chair."},{"title":"Connectors","vocab":["and","but","or","so","because"],"sentence":"I am tired but happy."},{"title":"Question Words","vocab":["what","who","where","when","why"],"sentence":"Where is my bag?"},{"title":"Time Words","vocab":["now","today","tomorrow","yesterday","later"],"sentence":"We can play later."},{"title":"Review","vocab":["I","the","is","can","where"],"sentence":"Where is the book?"}]},{"id":"sight_words_2","level":"Beginner","emoji":"⚡","name":"High-Frequency Words II","desc":"Build speed with everyday verbs, pronouns, determiners and helpers","days":[{"title":"Common Verbs","vocab":["go","come","see","look","make"],"sentence":"Come and see my picture."},{"title":"More Verbs","vocab":["get","give","take","put","keep"],"sentence":"Put the book on the table."},{"title":"Needs","vocab":["want","need","like","love","help"],"sentence":"I need help, please."},{"title":"Movement","vocab":["walk","run","sit","stand","stop"],"sentence":"Please stand and walk slowly."},{"title":"Possession","vocab":["my","your","his","her","our"],"sentence":"This is my pencil."},{"title":"Quantity","vocab":["one","two","some","many","more"],"sentence":"I want some more water."},{"title":"Position","vocab":["here","there","inside","outside","behind"],"sentence":"My shoes are outside."},{"title":"Describing","vocab":["big","small","good","new","old"],"sentence":"I have a new bag."},{"title":"Polite Words","vocab":["please","thanks","sorry","hello","goodbye"],"sentence":"Hello, please come in."},{"title":"Review","vocab":["want","my","some","here","please"],"sentence":"I want some water, please."}]},{"id":"people_body","level":"Beginner","emoji":"🧍","name":"Me, Family & Body","desc":"Talk about identity, family members, body parts and basic feelings","days":[{"title":"My Name","vocab":["name","boy","girl","child","friend"],"sentence":"My name is Alex."},{"title":"Family","vocab":["mother","father","sister","brother","family"],"sentence":"My family is at home."},{"title":"More Family","vocab":["grandmother","grandfather","aunt","uncle","cousin"],"sentence":"My cousin is my friend."},{"title":"Face","vocab":["head","hair","eye","ear","nose"],"sentence":"My nose is on my face."},{"title":"Body","vocab":["arm","hand","leg","foot","back"],"sentence":"I raise my hand."},{"title":"Five Senses","vocab":["see","hear","smell","taste","touch"],"sentence":"I can hear the music."},{"title":"Feelings","vocab":["happy","sad","angry","tired","scared"],"sentence":"I feel happy today."},{"title":"Needs","vocab":["hungry","thirsty","sleepy","sick","okay"],"sentence":"I am hungry now."},{"title":"Actions","vocab":["smile","laugh","cry","talk","listen"],"sentence":"I smile when I am happy."},{"title":"Review","vocab":["family","hand","hear","happy","hungry"],"sentence":"My family makes me happy."}]},{"id":"everyday_basics","level":"Beginner","emoji":"🏡","name":"Everyday Basics","desc":"Core school, home, food, numbers, colors and daily routine vocabulary","days":[{"title":"School Things","vocab":["book","pencil","eraser","ruler","bag"],"sentence":"My pencil is in my bag."},{"title":"Classroom","vocab":["teacher","student","desk","chair","board"],"sentence":"The teacher is by the board."},{"title":"Home Rooms","vocab":["home","room","kitchen","bathroom","bedroom"],"sentence":"My bedroom is at home."},{"title":"Home Things","vocab":["bed","table","door","window","light"],"sentence":"The light is near the door."},{"title":"Food","vocab":["rice","bread","egg","milk","water"],"sentence":"I drink water with my meal."},{"title":"Fruit","vocab":["apple","banana","orange","grape","mango"],"sentence":"I eat an apple."},{"title":"Colors","vocab":["red","blue","green","yellow","black"],"sentence":"My bag is blue."},{"title":"Numbers","vocab":["one","two","three","four","five"],"sentence":"I have five pencils."},{"title":"Time","vocab":["morning","afternoon","evening","night","today"],"sentence":"I read at night."},{"title":"Routine","vocab":["wake","wash","eat","study","sleep"],"sentence":"I wake up in the morning."}]},{"id":"describing","level":"Intermediate","emoji":"🎨","name":"Describing People & Things","desc":"Use adjectives, comparisons and simple descriptive phrases","days":[{"title":"Size","vocab":["tall","short","big","small","tiny"],"sentence":"The tall boy has a small bag."},{"title":"Age","vocab":["young","old","new","modern","ancient"],"sentence":"This is an old building."},{"title":"Appearance","vocab":["pretty","handsome","cute","strong","thin"],"sentence":"The cute dog is very small."},{"title":"Colors & Shape","vocab":["round","square","long","wide","bright"],"sentence":"The table is round."},{"title":"Texture","vocab":["soft","hard","smooth","rough","heavy"],"sentence":"This blanket is soft."},{"title":"Speed","vocab":["fast","slow","quick","quiet","loud"],"sentence":"The train is fast."},{"title":"Temperature","vocab":["hot","cold","warm","cool","freezing"],"sentence":"The soup is hot."},{"title":"Comparatives","vocab":["bigger","smaller","faster","slower","taller"],"sentence":"My brother is taller than me."},{"title":"Superlatives","vocab":["biggest","smallest","fastest","tallest","best"],"sentence":"This is the biggest box."},{"title":"Review","vocab":["tall","soft","fast","warm","bigger"],"sentence":"The bigger blanket is warm and soft."}]},{"id":"home_location","level":"Intermediate","emoji":"🏠","name":"Home & Location","desc":"Describe rooms, objects, positions and household actions","days":[{"title":"Living Room","vocab":["sofa","television","shelf","carpet","lamp"],"sentence":"The lamp is beside the sofa."},{"title":"Kitchen","vocab":["fridge","stove","sink","plate","cup"],"sentence":"The cup is beside the sink."},{"title":"Bedroom","vocab":["pillow","blanket","closet","drawer","mirror"],"sentence":"The pillow is on the bed."},{"title":"Bathroom","vocab":["shower","toilet","towel","soap","toothbrush"],"sentence":"The towel is near the shower."},{"title":"Prepositions","vocab":["between","beside","above","below","across"],"sentence":"The chair is between the tables."},{"title":"Directions at Home","vocab":["upstairs","downstairs","left","right","straight"],"sentence":"The bathroom is upstairs."},{"title":"Housework","vocab":["clean","sweep","wash","fold","tidy"],"sentence":"I clean my room every Saturday."},{"title":"Possession","vocab":["mine","yours","hers","his","ours"],"sentence":"This blue cup is mine."},{"title":"There is/are","vocab":["there","some","any","many","few"],"sentence":"There are some books on the shelf."},{"title":"Review","vocab":["sofa","fridge","pillow","between","clean"],"sentence":"I clean the sofa beside the shelf."}]},{"id":"food_restaurant","level":"Intermediate","emoji":"🍜","name":"Food & Restaurant","desc":"Order meals, describe food, quantities and preferences","days":[{"title":"Meals","vocab":["breakfast","lunch","dinner","snack","meal"],"sentence":"Breakfast is my first meal."},{"title":"Proteins","vocab":["chicken","beef","fish","pork","tofu"],"sentence":"I would like chicken, please."},{"title":"Vegetables","vocab":["broccoli","carrot","corn","cabbage","pepper"],"sentence":"The broccoli is green."},{"title":"Drinks","vocab":["juice","tea","milk","water","smoothie"],"sentence":"I would like some water."},{"title":"Taste","vocab":["sweet","salty","sour","spicy","delicious"],"sentence":"This soup is delicious."},{"title":"Quantity","vocab":["bowl","plate","cup","piece","slice"],"sentence":"I want a slice of pizza."},{"title":"Ordering","vocab":["menu","order","waiter","bill","table"],"sentence":"May I see the menu, please?"},{"title":"Requests","vocab":["please","another","without","extra","enough"],"sentence":"Can I have another cup, please?"},{"title":"Preferences","vocab":["favorite","prefer","rather","instead","choice"],"sentence":"I prefer rice instead of bread."},{"title":"Restaurant Review","vocab":["menu","chicken","spicy","bowl","bill"],"sentence":"The spicy chicken comes in a bowl."}]},{"id":"shopping_money","level":"Intermediate","emoji":"🛍️","name":"Shopping & Money","desc":"Ask prices, compare products, sizes and make purchases","days":[{"title":"Money","vocab":["money","coin","cash","price","change"],"sentence":"The price is ten dollars."},{"title":"Store","vocab":["shop","store","market","cashier","customer"],"sentence":"The customer asks the cashier."},{"title":"Buying","vocab":["buy","pay","cost","sell","spend"],"sentence":"I want to buy this book."},{"title":"Clothes Size","vocab":["small","medium","large","size","fit"],"sentence":"This shirt is my size."},{"title":"Trying Things","vocab":["try","wear","match","choose","return"],"sentence":"I want to try this shirt."},{"title":"Price Questions","vocab":["cheap","expensive","sale","discount","total"],"sentence":"This toy is on sale."},{"title":"Numbers","vocab":["ten","twenty","fifty","hundred","dollar"],"sentence":"The book costs twenty dollars."},{"title":"Comparing","vocab":["cheaper","better","more","less","same"],"sentence":"This one is cheaper."},{"title":"At Checkout","vocab":["receipt","bag","card","cash","change"],"sentence":"Can I have the receipt, please?"},{"title":"Review","vocab":["price","buy","size","sale","receipt"],"sentence":"I buy the shirt because it is on sale."}]},{"id":"school_learning","level":"Intermediate","emoji":"🏫","name":"School & Learning","desc":"Talk about subjects, assignments, instructions and learning habits","days":[{"title":"Subjects","vocab":["English","math","science","history","art"],"sentence":"Science is my favorite subject."},{"title":"School Day","vocab":["class","lesson","break","lunch","homework"],"sentence":"I have homework after class."},{"title":"Learning Actions","vocab":["read","write","spell","answer","practice"],"sentence":"I practice spelling every day."},{"title":"Instructions","vocab":["open","close","circle","underline","choose"],"sentence":"Please underline the correct answer."},{"title":"Questions","vocab":["question","answer","example","idea","reason"],"sentence":"I know the answer to the question."},{"title":"Assessment","vocab":["quiz","test","score","mistake","correct"],"sentence":"I learn from every mistake."},{"title":"Study Tools","vocab":["computer","tablet","notebook","dictionary","calculator"],"sentence":"I use a dictionary to study."},{"title":"Group Work","vocab":["partner","group","share","explain","discuss"],"sentence":"I explain my idea to my partner."},{"title":"Learning Habits","vocab":["review","remember","focus","plan","finish"],"sentence":"I review my notes before a test."},{"title":"Review","vocab":["science","homework","practice","mistake","review"],"sentence":"I practice science and review my homework."}]},{"id":"hobbies_sports","level":"Intermediate","emoji":"⚽","name":"Hobbies & Sports","desc":"Talk about interests, abilities, rules and free-time activities","days":[{"title":"Sports","vocab":["soccer","basketball","baseball","swimming","tennis"],"sentence":"I play soccer after school."},{"title":"Music","vocab":["music","guitar","piano","song","sing"],"sentence":"I play the guitar."},{"title":"Games","vocab":["game","chess","cards","puzzle","video game"],"sentence":"We play a board game together."},{"title":"Creative Hobbies","vocab":["draw","paint","build","craft","design"],"sentence":"I like to draw animals."},{"title":"Outdoor","vocab":["hike","cycle","camp","fish","climb"],"sentence":"We hike in the mountains."},{"title":"Ability","vocab":["can","cannot","able","learn","practice"],"sentence":"I can swim but I cannot dive."},{"title":"Frequency","vocab":["always","usually","often","sometimes","never"],"sentence":"I often play basketball."},{"title":"Equipment","vocab":["ball","racket","helmet","shoes","uniform"],"sentence":"I wear a helmet when I cycle."},{"title":"Inviting","vocab":["join","team","together","ready","start"],"sentence":"Would you like to join our team?"},{"title":"Review","vocab":["soccer","guitar","draw","hike","often"],"sentence":"I often draw after soccer practice."}]},{"id":"weather_clothes","level":"Intermediate","emoji":"🌦️","name":"Weather & Clothes","desc":"Understand forecasts and choose clothing for conditions","days":[{"title":"Weather","vocab":["sunny","cloudy","rainy","windy","foggy"],"sentence":"It is rainy today."},{"title":"Temperature","vocab":["hot","warm","cool","cold","freezing"],"sentence":"The weather is cold this morning."},{"title":"Storms","vocab":["storm","thunder","lightning","rain","wind"],"sentence":"The storm has strong wind."},{"title":"Basic Clothes","vocab":["shirt","pants","dress","shorts","skirt"],"sentence":"I wear shorts when it is hot."},{"title":"Warm Clothes","vocab":["jacket","coat","sweater","scarf","gloves"],"sentence":"I need a jacket because it is cold."},{"title":"Rain Gear","vocab":["umbrella","raincoat","boots","hat","hood"],"sentence":"Take an umbrella because it is raining."},{"title":"Forecast","vocab":["forecast","temperature","degree","chance","weather"],"sentence":"The forecast says it will rain."},{"title":"Seasons","vocab":["spring","summer","autumn","winter","season"],"sentence":"Summer is the hottest season."},{"title":"Choosing Clothes","vocab":["wear","take","bring","need","change"],"sentence":"I need to change my wet shirt."},{"title":"Review","vocab":["rainy","cold","jacket","umbrella","summer"],"sentence":"I bring an umbrella on a rainy summer day."}]},{"id":"transport_places","level":"Intermediate","emoji":"🚌","name":"Transport & Places","desc":"Get around town and describe where places are","days":[{"title":"Transport","vocab":["bus","train","car","bicycle","scooter"],"sentence":"I take the bus to school."},{"title":"More Transport","vocab":["taxi","subway","airplane","boat","walk"],"sentence":"We walk to the station."},{"title":"Places","vocab":["school","hospital","bank","library","park"],"sentence":"The library is near the park."},{"title":"Shops","vocab":["bakery","market","restaurant","pharmacy","mall"],"sentence":"The pharmacy is beside the bank."},{"title":"Station Words","vocab":["station","stop","platform","ticket","line"],"sentence":"My train leaves from platform two."},{"title":"Directions","vocab":["left","right","straight","corner","cross"],"sentence":"Turn left at the corner."},{"title":"Distance","vocab":["near","far","close","across","block"],"sentence":"The bank is across the street."},{"title":"Travel Time","vocab":["minute","hour","early","late","arrive"],"sentence":"The bus will arrive in ten minutes."},{"title":"Asking Directions","vocab":["excuse me","where","how","which","way"],"sentence":"Excuse me, which way is the station?"},{"title":"Review","vocab":["bus","library","platform","left","arrive"],"sentence":"The bus arrives near the library."}]},{"id":"routines_time","level":"Intermediate","emoji":"⏰","name":"Daily Routines & Time","desc":"Talk about schedules, frequency, time and sequence","days":[{"title":"Morning","vocab":["wake up","brush","wash","dress","breakfast"],"sentence":"I wake up at seven o'clock."},{"title":"School Routine","vocab":["leave","arrive","study","eat","return"],"sentence":"I arrive at school before eight."},{"title":"After School","vocab":["homework","practice","play","shower","dinner"],"sentence":"I do my homework after school."},{"title":"Evening","vocab":["relax","read","prepare","sleep","bedtime"],"sentence":"I prepare my bag before bedtime."},{"title":"Clock Time","vocab":["o'clock","half past","quarter","minute","hour"],"sentence":"It is half past seven."},{"title":"Days","vocab":["Monday","Tuesday","Wednesday","Thursday","Friday"],"sentence":"I have English on Monday."},{"title":"Weekend","vocab":["Saturday","Sunday","weekend","morning","afternoon"],"sentence":"We visit family on Sunday."},{"title":"Frequency","vocab":["always","usually","often","sometimes","never"],"sentence":"I usually read before bed."},{"title":"Sequence","vocab":["first","next","then","after","finally"],"sentence":"First I eat, then I brush my teeth."},{"title":"Review","vocab":["wake up","arrive","homework","usually","finally"],"sentence":"I usually finish my homework before dinner."}]},{"id":"questions_social","level":"Intermediate","emoji":"💬","name":"Questions & Social English","desc":"Ask and answer everyday questions politely","days":[{"title":"Introductions","vocab":["hello","name","meet","from","live"],"sentence":"Hello, nice to meet you."},{"title":"How Are You","vocab":["fine","great","okay","tired","busy"],"sentence":"I am tired but okay."},{"title":"What Questions","vocab":["what","which","kind","favorite","mean"],"sentence":"What is your favorite game?"},{"title":"Where Questions","vocab":["where","place","live","go","find"],"sentence":"Where do you live?"},{"title":"When Questions","vocab":["when","time","day","start","finish"],"sentence":"When does the movie start?"},{"title":"Who Questions","vocab":["who","friend","teacher","person","with"],"sentence":"Who is your teacher?"},{"title":"Why Questions","vocab":["why","because","reason","think","feel"],"sentence":"Why do you like this book?"},{"title":"How Questions","vocab":["how","many","much","often","long"],"sentence":"How often do you practice?"},{"title":"Polite Conversation","vocab":["please","thank you","excuse me","sorry","welcome"],"sentence":"Excuse me, can you help me?"},{"title":"Review","vocab":["what","where","when","why","how"],"sentence":"How do you get to school?"}]},{"id":"past_events","level":"Advanced","emoji":"🕰️","name":"Past Events","desc":"Tell stories about yesterday, last week and completed actions","days":[{"title":"Past Be","vocab":["was","were","yesterday","last","ago"],"sentence":"I was at the park yesterday."},{"title":"Regular Verbs","vocab":["played","walked","watched","cleaned","helped"],"sentence":"I played soccer after school."},{"title":"Irregular Go/See","vocab":["went","saw","came","had","did"],"sentence":"We went to the zoo last weekend."},{"title":"Irregular Eat/Drink","vocab":["ate","drank","made","took","gave"],"sentence":"I ate noodles for dinner."},{"title":"Experiences","vocab":["visited","traveled","stayed","met","learned"],"sentence":"We visited our grandparents."},{"title":"Past Questions","vocab":["did","where","when","what","who"],"sentence":"What did you do yesterday?"},{"title":"Negative Past","vocab":["didn't","wasn't","weren't","couldn't","forgot"],"sentence":"I didn't finish my homework."},{"title":"Sequence","vocab":["first","then","after that","later","finally"],"sentence":"First we ate, then we watched a movie."},{"title":"Details","vocab":["because","when","while","before","after"],"sentence":"I smiled when I saw my friend."},{"title":"Past Story Review","vocab":["went","saw","ate","didn't","finally"],"sentence":"We went home after we ate dinner."}]},{"id":"future_plans","level":"Advanced","emoji":"📅","name":"Future Plans","desc":"Talk about tomorrow, intentions, schedules and possibilities","days":[{"title":"Will","vocab":["will","tomorrow","later","soon","next"],"sentence":"I will call you tomorrow."},{"title":"Going To","vocab":["going to","plan","visit","study","practice"],"sentence":"I am going to study tonight."},{"title":"Future Time","vocab":["next week","next month","this weekend","tonight","later"],"sentence":"We will travel next week."},{"title":"Arrangements","vocab":["meet","leave","arrive","start","finish"],"sentence":"We will meet at three o'clock."},{"title":"Invitations","vocab":["would","like","join","come","free"],"sentence":"Would you like to come with us?"},{"title":"Accepting","vocab":["sure","great","sounds good","I'd love to","okay"],"sentence":"I'd love to join you."},{"title":"Declining","vocab":["sorry","can't","busy","maybe","another time"],"sentence":"Sorry, I can't come today."},{"title":"Predictions","vocab":["think","probably","maybe","might","will"],"sentence":"I think it will rain tomorrow."},{"title":"Goals","vocab":["goal","want","hope","learn","improve"],"sentence":"I hope to improve my English."},{"title":"Review","vocab":["will","going to","meet","maybe","hope"],"sentence":"I hope we will meet again soon."}]},{"id":"opinions_reasons","level":"Advanced","emoji":"🧠","name":"Opinions & Reasons","desc":"Express preferences, agreement, disagreement and reasons","days":[{"title":"I Think","vocab":["think","idea","opinion","believe","feel"],"sentence":"I think this game is fun."},{"title":"Because","vocab":["because","reason","so","therefore","why"],"sentence":"I like science because it is interesting."},{"title":"Agreeing","vocab":["agree","right","true","exactly","same"],"sentence":"I agree with your idea."},{"title":"Disagreeing","vocab":["disagree","however","but","different","instead"],"sentence":"I disagree, but I understand your reason."},{"title":"Preferences","vocab":["prefer","rather","favorite","choice","better"],"sentence":"I prefer reading to watching television."},{"title":"Comparing","vocab":["better","worse","easier","harder","more useful"],"sentence":"Walking is easier than running for me."},{"title":"Explaining","vocab":["example","means","shows","important","useful"],"sentence":"This example shows why practice is useful."},{"title":"Suggestions","vocab":["should","could","maybe","recommend","suggest"],"sentence":"I think we should leave early."},{"title":"Persuading","vocab":["really","best","help","benefit","worth"],"sentence":"This book is worth reading."},{"title":"Review","vocab":["think","because","agree","prefer","should"],"sentence":"I think we should go because the weather is good."}]},{"id":"problems_help","level":"Advanced","emoji":"🆘","name":"Problems & Help","desc":"Explain problems, request help and solve everyday difficulties","days":[{"title":"Basic Problems","vocab":["problem","wrong","broken","lost","missing"],"sentence":"My phone is broken."},{"title":"Asking Help","vocab":["help","please","could","show","explain"],"sentence":"Could you help me, please?"},{"title":"Lost Things","vocab":["lost","find","look","remember","last"],"sentence":"I lost my keys this morning."},{"title":"Technology","vocab":["internet","password","screen","charge","restart"],"sentence":"The internet is not working."},{"title":"School Problems","vocab":["understand","question","difficult","example","repeat"],"sentence":"I don't understand this question."},{"title":"At a Store","vocab":["wrong size","return","exchange","receipt","damaged"],"sentence":"I need to return this damaged shirt."},{"title":"Travel Problems","vocab":["missed","late","ticket","platform","direction"],"sentence":"I missed my train."},{"title":"Emergency Language","vocab":["emergency","call","police","doctor","safe"],"sentence":"Please call a doctor."},{"title":"Solutions","vocab":["try","check","ask","fix","replace"],"sentence":"Let's try to fix the problem."},{"title":"Review","vocab":["broken","help","lost","understand","fix"],"sentence":"Could you help me fix this broken toy?"}]},{"id":"health_feelings","level":"Advanced","emoji":"❤️","name":"Health & Feelings","desc":"Describe symptoms, emotions, needs and simple health situations","days":[{"title":"Body Symptoms","vocab":["headache","stomachache","cough","fever","pain"],"sentence":"I have a headache."},{"title":"Feeling Unwell","vocab":["sick","dizzy","weak","tired","nauseous"],"sentence":"I feel tired and weak."},{"title":"At the Doctor","vocab":["doctor","nurse","clinic","medicine","appointment"],"sentence":"I have a doctor's appointment."},{"title":"Instructions","vocab":["rest","drink","take","sleep","avoid"],"sentence":"The doctor says I should rest."},{"title":"Injury","vocab":["hurt","cut","bruise","swollen","bandage"],"sentence":"I hurt my knee while playing."},{"title":"Emotions","vocab":["excited","nervous","worried","proud","disappointed"],"sentence":"I feel nervous before a test."},{"title":"Calming Down","vocab":["breathe","relax","talk","pause","calm"],"sentence":"I breathe slowly when I feel worried."},{"title":"Needs","vocab":["need","want","comfortable","better","worse"],"sentence":"I need some water because I feel sick."},{"title":"Advice","vocab":["should","shouldn't","could","need to","must"],"sentence":"You should drink more water."},{"title":"Review","vocab":["headache","doctor","rest","nervous","should"],"sentence":"I should rest because I have a headache."}]},{"id":"travel_directions","level":"Advanced","emoji":"✈️","name":"Travel & Directions","desc":"Handle airports, hotels, tickets, directions and travel questions","days":[{"title":"Airport","vocab":["airport","flight","gate","passport","luggage"],"sentence":"My flight leaves from gate twelve."},{"title":"Check-in","vocab":["check in","boarding pass","seat","bag","counter"],"sentence":"I need to check in my bag."},{"title":"On the Plane","vocab":["window","aisle","seatbelt","takeoff","landing"],"sentence":"Please fasten your seatbelt."},{"title":"Hotel","vocab":["hotel","room","reservation","key","reception"],"sentence":"I have a reservation for two nights."},{"title":"Hotel Requests","vocab":["towel","pillow","wifi","breakfast","checkout"],"sentence":"Could I have another towel, please?"},{"title":"Directions","vocab":["north","south","east","west","straight"],"sentence":"Go straight and turn east."},{"title":"Landmarks","vocab":["station","museum","temple","bridge","tower"],"sentence":"The museum is beside the bridge."},{"title":"Tickets","vocab":["ticket","single","return","adult","child"],"sentence":"I need one adult ticket."},{"title":"Travel Questions","vocab":["how long","how far","which","where","when"],"sentence":"How long does the trip take?"},{"title":"Review","vocab":["flight","reservation","straight","ticket","how long"],"sentence":"How long is the flight?"}]},{"id":"friends_invitations","level":"Advanced","emoji":"🤝","name":"Friends & Invitations","desc":"Build natural social exchanges, invitations and responses","days":[{"title":"Making Friends","vocab":["friend","classmate","together","talk","meet"],"sentence":"I met a new classmate today."},{"title":"Inviting","vocab":["invite","come","join","want","free"],"sentence":"Do you want to join us?"},{"title":"Planning","vocab":["when","where","time","place","meet"],"sentence":"Where should we meet?"},{"title":"Accepting","vocab":["sure","great","definitely","sounds good","love to"],"sentence":"That sounds good to me."},{"title":"Declining","vocab":["sorry","busy","can't","maybe","another day"],"sentence":"Sorry, I'm busy this afternoon."},{"title":"Changing Plans","vocab":["change","later","earlier","instead","reschedule"],"sentence":"Can we meet later instead?"},{"title":"Sharing","vocab":["share","borrow","lend","give","bring"],"sentence":"Can I borrow your pencil?"},{"title":"Apologizing","vocab":["sorry","mistake","mean","forgot","promise"],"sentence":"I'm sorry I forgot your book."},{"title":"Encouraging","vocab":["great","good job","keep going","you can","well done"],"sentence":"You can do it, keep going!"},{"title":"Review","vocab":["join","meet","sounds good","sorry","share"],"sentence":"Do you want to meet and play together?"}]},{"id":"storytelling","level":"Advanced","emoji":"📚","name":"Storytelling & Sequencing","desc":"Build coherent stories with sequence, description and cause","days":[{"title":"Beginning","vocab":["once","one day","first","begin","start"],"sentence":"One day, a boy found a small box."},{"title":"Characters","vocab":["character","boy","girl","friend","family"],"sentence":"The girl was the main character."},{"title":"Setting","vocab":["place","time","forest","city","school"],"sentence":"The story takes place in a city."},{"title":"Actions","vocab":["ran","found","opened","heard","followed"],"sentence":"He opened the door slowly."},{"title":"Description","vocab":["dark","bright","quiet","strange","beautiful"],"sentence":"The room was dark and quiet."},{"title":"Sequence","vocab":["next","then","after that","later","finally"],"sentence":"Then they walked into the forest."},{"title":"Cause","vocab":["because","so","therefore","since","result"],"sentence":"She ran because she heard a noise."},{"title":"Dialogue","vocab":["said","asked","answered","shouted","whispered"],"sentence":"He asked, 'Where are we?'"},{"title":"Ending","vocab":["finally","ended","learned","returned","safe"],"sentence":"Finally, everyone returned home safely."},{"title":"Story Review","vocab":["first","found","quiet","because","finally"],"sentence":"First we found the path, and finally we got home."}]},{"id":"real_world","level":"Advanced","emoji":"🌍","name":"Real-World English","desc":"Practice practical conversations at school, stores, restaurants and public places","days":[{"title":"Cafe","vocab":["order","drink","size","please","anything else"],"sentence":"I'd like a medium drink, please."},{"title":"Restaurant","vocab":["table","menu","order","bill","tip"],"sentence":"Could we have the bill, please?"},{"title":"Store","vocab":["size","price","try","receipt","return"],"sentence":"Can I try this on?"},{"title":"Library","vocab":["borrow","return","library card","due","book"],"sentence":"When is this book due?"},{"title":"School Office","vocab":["office","form","teacher","schedule","information"],"sentence":"I need some information about my schedule."},{"title":"Phone Call","vocab":["hello","calling","speak","message","later"],"sentence":"May I speak to Sam, please?"},{"title":"Public Transport","vocab":["ticket","stop","line","transfer","station"],"sentence":"Which line goes to the station?"},{"title":"Asking a Stranger","vocab":["excuse me","could","tell","where","please"],"sentence":"Excuse me, could you tell me where the bank is?"},{"title":"Making a Request","vocab":["could","would","mind","please","help"],"sentence":"Would you mind helping me?"},{"title":"Review","vocab":["order","receipt","borrow","speak","excuse me"],"sentence":"Excuse me, may I order first?"}]},{"id":"conversation_mastery","level":"Advanced","emoji":"🏆","name":"Conversation Mastery","desc":"Sustain everyday conversation across familiar topics","days":[{"title":"About Me","vocab":["introduce","name","age","live","like"],"sentence":"I can introduce myself clearly."},{"title":"Family & Home","vocab":["family","home","together","usually","weekend"],"sentence":"My family usually eats together."},{"title":"School","vocab":["subject","teacher","class","learn","favorite"],"sentence":"My favorite subject is science."},{"title":"Hobbies","vocab":["hobby","practice","enjoy","often","because"],"sentence":"I enjoy soccer because it is exciting."},{"title":"Food","vocab":["favorite","order","prefer","delicious","meal"],"sentence":"I prefer noodles for dinner."},{"title":"Yesterday","vocab":["yesterday","went","did","saw","felt"],"sentence":"Yesterday I went to the park."},{"title":"Tomorrow","vocab":["tomorrow","will","plan","going to","hope"],"sentence":"Tomorrow I am going to study."},{"title":"Opinions","vocab":["think","agree","reason","better","should"],"sentence":"I think we should practice every day."},{"title":"Problem Solving","vocab":["problem","help","explain","solution","try"],"sentence":"I can explain a problem and ask for help."},{"title":"Graduation","vocab":["conversation","listen","speak","read","write"],"sentence":"I can listen, speak, read, and write in English."}]}];
+
+
+const ALPHABET_META={"A":{"lower":"a","sound":"/æ/","example":"apple","zhWord":"蘋果","emoji":"🍎","rhyme":"A, A, apple! /æ/ /æ/ apple!"},"B":{"lower":"b","sound":"/b/","example":"ball","zhWord":"球","emoji":"⚽","rhyme":"B, B, ball! /b/ /b/ ball!"},"C":{"lower":"c","sound":"/k/","example":"cat","zhWord":"貓","emoji":"🐱","rhyme":"C, C, cat! /k/ /k/ cat!"},"D":{"lower":"d","sound":"/d/","example":"dog","zhWord":"狗","emoji":"🐶","rhyme":"D, D, dog! /d/ /d/ dog!"},"E":{"lower":"e","sound":"/ɛ/","example":"egg","zhWord":"蛋","emoji":"🥚","rhyme":"E, E, egg! /ɛ/ /ɛ/ egg!"},"F":{"lower":"f","sound":"/f/","example":"fish","zhWord":"魚","emoji":"🐟","rhyme":"F, F, fish! /f/ /f/ fish!"},"G":{"lower":"g","sound":"/g/","example":"goat","zhWord":"山羊","emoji":"🐐","rhyme":"G, G, goat! /g/ /g/ goat!"},"H":{"lower":"h","sound":"/h/","example":"hat","zhWord":"帽子","emoji":"🎩","rhyme":"H, H, hat! /h/ /h/ hat!"},"I":{"lower":"i","sound":"/ɪ/","example":"igloo","zhWord":"冰屋","emoji":"🧊","rhyme":"I, I, igloo! /ɪ/ /ɪ/ igloo!"},"J":{"lower":"j","sound":"/dʒ/","example":"juice","zhWord":"果汁","emoji":"🧃","rhyme":"J, J, juice! /dʒ/ /dʒ/ juice!"},"K":{"lower":"k","sound":"/k/","example":"kite","zhWord":"風箏","emoji":"🪁","rhyme":"K, K, kite! /k/ /k/ kite!"},"L":{"lower":"l","sound":"/l/","example":"lion","zhWord":"獅子","emoji":"🦁","rhyme":"L, L, lion! /l/ /l/ lion!"},"M":{"lower":"m","sound":"/m/","example":"moon","zhWord":"月亮","emoji":"🌙","rhyme":"M, M, moon! /m/ /m/ moon!"},"N":{"lower":"n","sound":"/n/","example":"nose","zhWord":"鼻子","emoji":"👃","rhyme":"N, N, nose! /n/ /n/ nose!"},"O":{"lower":"o","sound":"/ɑ/","example":"octopus","zhWord":"章魚","emoji":"🐙","rhyme":"O, O, octopus! /ɑ/ /ɑ/ octopus!"},"P":{"lower":"p","sound":"/p/","example":"pig","zhWord":"豬","emoji":"🐷","rhyme":"P, P, pig! /p/ /p/ pig!"},"Q":{"lower":"q","sound":"/kw/","example":"queen","zhWord":"女王","emoji":"👑","rhyme":"Q, Q, queen! /kw/ /kw/ queen!"},"R":{"lower":"r","sound":"/r/","example":"rabbit","zhWord":"兔子","emoji":"🐰","rhyme":"R, R, rabbit! /r/ /r/ rabbit!"},"S":{"lower":"s","sound":"/s/","example":"sun","zhWord":"太陽","emoji":"☀️","rhyme":"S, S, sun! /s/ /s/ sun!"},"T":{"lower":"t","sound":"/t/","example":"tiger","zhWord":"老虎","emoji":"🐯","rhyme":"T, T, tiger! /t/ /t/ tiger!"},"U":{"lower":"u","sound":"/ʌ/","example":"umbrella","zhWord":"雨傘","emoji":"☂️","rhyme":"U, U, umbrella! /ʌ/ /ʌ/ umbrella!"},"V":{"lower":"v","sound":"/v/","example":"van","zhWord":"廂型車","emoji":"🚐","rhyme":"V, V, van! /v/ /v/ van!"},"W":{"lower":"w","sound":"/w/","example":"whale","zhWord":"鯨魚","emoji":"🐳","rhyme":"W, W, whale! /w/ /w/ whale!"},"X":{"lower":"x","sound":"/ks/","example":"box","zhWord":"盒子","emoji":"📦","rhyme":"X, X, box! /ks/ /ks/ box!"},"Y":{"lower":"y","sound":"/j/","example":"yo-yo","zhWord":"溜溜球","emoji":"🪀","rhyme":"Y, Y, yo-yo! /j/ /j/ yo-yo!"},"Z":{"lower":"z","sound":"/z/","example":"zebra","zhWord":"斑馬","emoji":"🦓","rhyme":"Z, Z, zebra! /z/ /z/ zebra!"}};
+const WORD_PIC={"apple":"🍎","ant":"🐜","alligator":"🐊","ball":"⚽","book":"📘","banana":"🍌","cat":"🐱","car":"🚗","cup":"🥤","dog":"🐶","duck":"🦆","door":"🚪","egg":"🥚","elephant":"🐘","elbow":"💪","fish":"🐟","fan":"🪭","frog":"🐸","goat":"🐐","game":"🎮","gift":"🎁","hat":"🎩","hand":"✋","house":"🏠","igloo":"🧊","insect":"🐞","ink":"🖋️","juice":"🧃","jam":"🍓","jump":"🦘","kite":"🪁","king":"🤴","key":"🔑","lion":"🦁","lamp":"💡","leaf":"🍃","moon":"🌙","milk":"🥛","mouse":"🐭","nose":"👃","net":"🥅","nest":"🪺","octopus":"🐙","orange":"🍊","ox":"🐂","pig":"🐷","pen":"🖊️","pizza":"🍕","queen":"👑","quiz":"❓","quilt":"🛏️","rabbit":"🐰","red":"🔴","rain":"🌧️","sun":"☀️","sock":"🧦","star":"⭐","tiger":"🐯","toy":"🧸","tree":"🌳","umbrella":"☂️","up":"⬆️","under":"⬇️","van":"🚐","violin":"🎻","vest":"🦺","whale":"🐳","water":"💧","window":"🪟","box":"📦","fox":"🦊","six":"6️⃣","yo-yo":"🪀","yellow":"🟡","yogurt":"🥣","zebra":"🦓","zoo":"🦒","zero":"0️⃣","bed":"🛏️","map":"🗺️","man":"👨","pan":"🍳","hen":"🐔","leg":"🦵","pet":"🐕","jet":"✈️","sit":"🪑","fin":"🐟","lip":"👄","pin":"📌","bin":"🗑️","hot":"🔥","top":"🔝","pot":"🍲","dot":"🔵","mop":"🧹","bus":"🚌","run":"🏃","ship":"🚢","shop":"🏪","shoe":"👟","shell":"🐚","chair":"🪑","cheese":"🧀","chicken":"🐔","beach":"🏖️","thumb":"👍","teeth":"🦷","wheel":"🛞","ring":"💍","clock":"🕒","snack":"🍪","blue":"🔵","plane":"✈️","green":"🟢","train":"🚆","school":"🏫","spoon":"🥄","snake":"🐍","desk":"🪑","cake":"🍰","name":"🏷️","lake":"🏞️","bike":"🚲","five":"5️⃣","time":"⏰","smile":"😊","home":"🏡","phone":"📱","cute":"🥰","rainy":"🌧️","boat":"⛵","food":"🍽️","room":"🛋️","park":"🌳","farm":"🚜","horse":"🐴","bird":"🐦","girl":"👧","boy":"👦","coin":"🪙","cloud":"☁️","town":"🏘️","mom":"👩","dad":"👨","mother":"👩","father":"👨","family":"👨‍👩‍👧‍👦","friend":"🧑‍🤝‍🧑","brother":"👦","sister":"👧","baby":"👶","teacher":"👩‍🏫","student":"🧑‍🎓","head":"🙂","eye":"👁️","ear":"👂","mouth":"👄","arm":"💪","foot":"🦶","happy":"😊","sad":"😢","angry":"😠","tired":"🥱","hungry":"😋","thirsty":"🥤","one":"1️⃣","two":"2️⃣","three":"3️⃣","four":"4️⃣","seven":"7️⃣","eight":"8️⃣","nine":"9️⃣","ten":"🔟","black":"⚫","white":"⚪","pink":"🩷","purple":"🟣","brown":"🟤","rice":"🍚","bread":"🍞","noodles":"🍜","beef":"🥩","fruit":"🍎","vegetable":"🥦","shirt":"👕","pants":"👖","dress":"👗","coat":"🧥","shoes":"👟","morning":"🌅","afternoon":"🌤️","evening":"🌆","night":"🌙"};
+const WORD_ZH={"apple":"蘋果","ant":"螞蟻","alligator":"短吻鱷","ball":"球","book":"書","banana":"香蕉","cat":"貓","car":"汽車","cup":"杯子","dog":"狗","duck":"鴨子","door":"門","egg":"蛋","elephant":"大象","elbow":"手肘","fish":"魚","fan":"扇子","frog":"青蛙","goat":"山羊","game":"遊戲","gift":"禮物","hat":"帽子","hand":"手","house":"房子","igloo":"冰屋","insect":"昆蟲","ink":"墨水","juice":"果汁","jam":"果醬","jump":"跳","kite":"風箏","king":"國王","key":"鑰匙","lion":"獅子","lamp":"燈","leaf":"葉子","moon":"月亮","milk":"牛奶","mouse":"老鼠","nose":"鼻子","net":"網子","nest":"鳥巢","octopus":"章魚","orange":"橘子","ox":"牛","pig":"豬","pen":"筆","pizza":"披薩","queen":"女王","quiz":"小測驗","quilt":"棉被","rabbit":"兔子","red":"紅色","rain":"雨","sun":"太陽","sock":"襪子","star":"星星","tiger":"老虎","toy":"玩具","tree":"樹","umbrella":"雨傘","up":"上","under":"下面","van":"廂型車","violin":"小提琴","vest":"背心","whale":"鯨魚","water":"水","window":"窗戶","box":"盒子","fox":"狐狸","six":"六","yo-yo":"溜溜球","yellow":"黃色","yogurt":"優格","zebra":"斑馬","zoo":"動物園","zero":"零","bed":"床","map":"地圖","man":"男人","pan":"平底鍋","hen":"母雞","leg":"腿","pet":"寵物","jet":"噴射機","sit":"坐","fin":"魚鰭","lip":"嘴唇","pin":"別針","bin":"垃圾桶","hot":"熱","top":"頂端","pot":"鍋子","dot":"點","mop":"拖把","bus":"公車","run":"跑","ship":"船","shop":"商店","shoe":"鞋子","shell":"貝殼","chair":"椅子","cheese":"起司","chicken":"雞","beach":"海灘","thumb":"拇指","teeth":"牙齒","wheel":"輪子","ring":"戒指","clock":"時鐘","snack":"點心","blue":"藍色","plane":"飛機","green":"綠色","train":"火車","school":"學校","spoon":"湯匙","snake":"蛇","desk":"書桌","cake":"蛋糕","name":"名字","lake":"湖","bike":"腳踏車","five":"五","time":"時間","smile":"微笑","home":"家","phone":"電話","cute":"可愛","rainy":"下雨的","boat":"船","food":"食物","room":"房間","park":"公園","farm":"農場","horse":"馬","bird":"鳥","girl":"女孩","boy":"男孩","coin":"硬幣","cloud":"雲","town":"城鎮","mom":"媽媽","dad":"爸爸","mother":"媽媽","father":"爸爸","family":"家人","friend":"朋友","brother":"兄弟","sister":"姊妹","baby":"寶寶","teacher":"老師","student":"學生","head":"頭","eye":"眼睛","ear":"耳朵","mouth":"嘴巴","arm":"手臂","foot":"腳","happy":"開心","sad":"難過","angry":"生氣","tired":"累","hungry":"餓","thirsty":"渴","one":"一","two":"二","three":"三","four":"四","seven":"七","eight":"八","nine":"九","ten":"十","black":"黑色","white":"白色","pink":"粉紅色","purple":"紫色","brown":"棕色","rice":"飯","bread":"麵包","noodles":"麵","beef":"牛肉","fruit":"水果","vegetable":"蔬菜","shirt":"上衣","pants":"褲子","dress":"洋裝","coat":"外套","shoes":"鞋子","morning":"早上","afternoon":"下午","evening":"傍晚","night":"晚上"};
+const WORLD_ZH={"alphabet_ai":"字母 A–I","alphabet_jr":"字母 J–R","alphabet_sz":"字母 S–Z","alphabet_mastery":"字母總複習","short_vowels":"短母音與 CVC 拼讀","digraphs_blends":"二合字母與子音群","magic_e":"長母音與 Magic E","vowel_teams":"母音組合與 R 控制母音","sight_words_1":"高頻字 I","sight_words_2":"高頻字 II","people_body":"人物與身體","everyday_basics":"生活基礎字彙","describing":"描述人事物","home_location":"居家與位置","food_restaurant":"食物與餐廳","shopping_money":"購物與金錢","school_learning":"學校與學習","hobbies_sports":"興趣與運動","weather_clothes":"天氣與服裝","transport_places":"交通與地點","routines_time":"日常作息與時間","questions_social":"提問與社交","past_events":"過去發生的事","future_plans":"未來計畫","opinions_reasons":"意見與理由","problems_help":"問題與求助","health_feelings":"健康與感受","travel_directions":"旅行與方向","friends_invitations":"朋友與邀請","storytelling":"說故事與順序","real_world":"真實生活英語","conversation_mastery":"會話總挑戰"};
+const REWARD_ZH={"avatarhat":"新頭像帽子","avatarbg":"新頭像背景","story":"選睡前故事","music":"選家庭音樂","dessert":"選甜點","latebed":"晚睡 15 分鐘","screen":"多 15 分鐘遊戲時間","snack":"特別點心","breakfast":"選早餐","movie":"選家庭電影","park":"選公園","friendtime":"朋友遊戲時間","stickers":"貼紙包","pens":"酷炫筆組","stationery":"文具驚喜","smalltoy":"小玩具","book":"新書","cards":"卡牌包","plush":"小布偶","craft":"手作材料包","puzzle":"拼圖或桌遊","sports":"運動用品","lego":"小型積木組","shirt":"選一件喜歡的衣服","cafe":"親子咖啡/飲料約會","bowling":"保齡球活動","arcade":"遊樂場活動","cinema":"電影院","museum":"博物館/科學館","water":"游泳/玩水活動","bigtoy":"大型玩具目標","adventure":"家庭冒險活動","themepark":"主題樂園基金","supergoal":"超級儲蓄大獎"};
+const LEVEL_ZH={"Beginner":"初級","Intermediate":"中級","Advanced":"進階"};
+const SKILL_ZH={"Listening":"聽力","Speaking":"口說","Reading":"閱讀","Writing":"書寫"};
+function worldZh(id){return WORLD_ZH[id]||""}
+function rewardZh(id){return REWARD_ZH[id]||""}
+function cleanVisualKey(word){return String(word||"").toLowerCase().replace(/[’']/g,"'").replace(/[^a-z0-9\- ]/g,"").trim()}
+function guessPicture(word){
+ const k=cleanVisualKey(word);
+ if(WORD_PIC[k])return WORD_PIC[k];
+ if(/happy|excited|proud|great|good/.test(k))return "😊";
+ if(/sad|disappointed/.test(k))return "😢";
+ if(/angry/.test(k))return "😠";
+ if(/tired|sleep/.test(k))return "🥱";
+ if(/eat|meal|dinner|lunch|breakfast/.test(k))return "🍽️";
+ if(/drink/.test(k))return "🥤";
+ if(/school|class|study|learn|teacher/.test(k))return "🏫";
+ if(/home|house|room/.test(k))return "🏠";
+ if(/money|price|buy|shop|store/.test(k))return "🛍️";
+ if(/walk|run|play|sport/.test(k))return "🏃";
+ if(/read|book|story/.test(k))return "📚";
+ if(/write|pen|pencil/.test(k))return "✏️";
+ if(/speak|talk|say|ask|answer/.test(k))return "💬";
+ if(/listen|hear|sound|voice/.test(k))return "👂";
+ if(/travel|flight|airport|plane/.test(k))return "✈️";
+ if(/car|bus|train|transport/.test(k))return "🚌";
+ if(/rain|storm|cloud/.test(k))return "🌧️";
+ if(/sun|bright/.test(k))return "☀️";
+ if(/doctor|health|sick|medicine/.test(k))return "🩺";
+ if(/friend|together|meet|invite/.test(k))return "🧑‍🤝‍🧑";
+ return "🖼️";
+}
+function zhWord(word){return WORD_ZH[cleanVisualKey(word)]||""}
+function visualCard(word,opts={}){
+ const k=cleanVisualKey(word),pic=guessPicture(k),zh=zhWord(k),hideText=!!opts.hideText;
+ return `<div class="visualCard ${opts.small?"small":""}"><div class="visualEmoji">${pic}</div>${hideText?"":`<div class="visualEn">${esc(word)}</div>${zh?`<div class="visualZh">${esc(zh)}</div>`:""}`}</div>`;
+}
+function visualStrip(words){
+ const arr=(words||[]).filter(Boolean).slice(0,5);if(!arr.length)return "";
+ return `<div class="visualStrip">${arr.map(w=>visualCard(w,{small:true})).join("")}</div>`;
+}
+
+
+function rotateArray(arr,n){
+ const a=arr.slice();if(!a.length)return a;n=((n%a.length)+a.length)%a.length;return a.slice(n).concat(a.slice(0,n));
+}
+function choiceOptions(words,target,seed){
+ const pool=[target,...words.filter(x=>x!==target)];
+ while(pool.length<4)pool.push(["cat","dog","sun","book"][pool.length%4]);
+ return rotateArray(pool.slice(0,4),seed%4);
+}
+function letterChoiceOptions(letter,lower,seed,isLower=false){
+ const alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+ const i=alphabet.indexOf(letter);
+ const picks=[letter,alphabet[(i+1)%26],alphabet[(i+3)%26],alphabet[(i+5)%26]];
+ const out=isLower?picks.map(x=>x.toLowerCase()):picks;
+ return rotateArray(out,seed%4);
+}
+function letterPictureOptions(letter,seed){
+ const alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+ const i=alphabet.indexOf(letter);
+ const ls=[letter,alphabet[(i+1)%26],alphabet[(i+4)%26],alphabet[(i+7)%26]];
+ const words=ls.map(L=>ALPHABET_META[L]?.example).filter(Boolean);
+ return rotateArray(words,seed%4);
+}
+function sentenceCloze(sentence,words){
+ const sorted=(words||[]).slice().sort((a,b)=>String(b).length-String(a).length);
+ for(const w of sorted){
+   const i=String(sentence).toLowerCase().indexOf(String(w).toLowerCase());
+   if(i>=0)return {answer:w,prompt:sentence.slice(0,i)+"____"+sentence.slice(i+String(w).length)};
+ }
+ return {answer:(words||["word"])[0],prompt:sentence};
+}
+function makeLetterTasks(world,worldIndex,day,dayIndex){
+ const dayNo=dayIndex+1,globalDay=worldIndex*10+dayNo,L=day.letter,low=day.lower,example=day.example;
+ const common={day:dayNo,globalDay,dayFocus:day.title,dayVocab:day.vocab,worldName:world.name,worldId:world.id,
+  letter:L,lower:low,sound:day.sound,example,zhWord:day.zhWord,emoji:day.emoji,rhyme:day.rhyme,visualWords:[example]};
+ return [
+  {...common,id:`${world.id}-d${String(dayNo).padStart(2,"0")}-intro`,type:"letterintro",title:`認識字母 ${L} / Meet ${L}`,
+   zh:`今天只學一個字母：大寫 ${L}、小寫 ${low}。先看、先聽，不急著拼單字。`,prompt:`Capital ${L} · lowercase ${low}`,
+   audioText:`${L}. ${example}. ${L} is for ${example}.`,coins:2,xp:4,skill:"listening"},
+  {...common,id:`${world.id}-d${String(dayNo).padStart(2,"0")}-capital`,type:"choice",title:`找大寫 ${L} / Find capital ${L}`,
+   zh:`哪一個是大寫 ${L}？點一下正確答案。`,prompt:`哪一個是大寫 ${L}?  Which one is capital ${L}?`,
+   choices:letterChoiceOptions(L,low,dayNo,false),answer:L,coins:3,xp:5,skill:"reading"},
+  {...common,id:`${world.id}-d${String(dayNo).padStart(2,"0")}-lower`,type:"choice",title:`找小寫 ${low} / Find lowercase ${low}`,
+   zh:`大寫 ${L} 的小寫朋友是誰？`,prompt:`找出小寫 ${low}。 Find lowercase ${low}.`,
+   choices:letterChoiceOptions(L,low,dayNo+1,true),answer:low,coins:3,xp:5,skill:"reading"},
+  {...common,id:`${world.id}-d${String(dayNo).padStart(2,"0")}-listen`,type:"choice",title:`聽字母 / Listen to ${L}`,
+   zh:`按播放，聽字母名稱，再找出你聽到的字母。`,prompt:"聽一聽，你聽到哪個字母？ Which letter do you hear?",
+   audioText:L,choices:letterChoiceOptions(L,low,dayNo+2,false),answer:L,coins:3,xp:6,skill:"listening"},
+  {...common,id:`${world.id}-d${String(dayNo).padStart(2,"0")}-picture`,type:"imagechoice",title:`${L} 的聲音與圖片 / Sound & picture`,
+   zh:`${L} 常見的基礎聲音是 ${day.sound}。哪一張圖片是今天的 ${L} 單字？`,prompt:`${L} → ${day.sound}. 找到 ${example} 的圖片。 Find the ${example} picture.`,
+   audioText:`${L}. ${example}.`,choices:letterPictureOptions(L,dayNo),answer:example,coins:4,xp:7,skill:"listening"},
+  {...common,id:`${world.id}-d${String(dayNo).padStart(2,"0")}-trace`,type:"trace",title:`寫一寫 ${L} ${low} / Trace ${L} ${low}`,
+   zh:`用手指或滑鼠描寫大寫 ${L} 和小寫 ${low}。慢慢寫，不用追求完美。`,prompt:`描一描：${L} ${low}`,traceText:`${L}   ${low}`,coins:4,xp:6,skill:"writing"},
+  {...common,id:`${world.id}-d${String(dayNo).padStart(2,"0")}-speak`,type:"speak",title:`跟著說 / Say ${L}`,
+   zh:`跟著龍龍說：${L}、${example}。可以先聽，再錄自己的聲音。`,prompt:`Say: ${L} — ${example}`,
+   audioText:`${L}. ${example}.`,speechTarget:example,allowContains:true,coins:4,xp:7,skill:"speaking"},
+  {...common,id:`${world.id}-d${String(dayNo).padStart(2,"0")}-chant`,type:"chant",title:`字母韻律 / Letter chant`,
+   zh:`最後跟著節奏念一遍。今天只要記住：${L}、${low}、${day.sound}、${example}。`,prompt:day.rhyme,
+   audioText:`${L}, ${L}, ${example}. ${L} is for ${example}.`,coins:2,xp:4,skill:"speaking"}
+ ];
+}
+function makeAlphaReviewTasks(world,worldIndex,day,dayIndex){
+ const dayNo=dayIndex+1,globalDay=worldIndex*10+dayNo,letters=day.letters||["A","B","C"],target=letters[(dayNo*2)%letters.length];
+ const meta=ALPHABET_META[target]||ALPHABET_META.A,example=meta.example,lower=meta.lower;
+ const common={day:dayNo,globalDay,dayFocus:day.title,dayVocab:day.vocab||[example],worldName:world.name,worldId:world.id,visualWords:day.vocab||[example],letter:target,lower,sound:meta.sound,example,zhWord:meta.zhWord,emoji:meta.emoji};
+ return [
+  {...common,id:`${world.id}-d${String(dayNo).padStart(2,"0")}-reviewintro`,type:"alphareviewintro",title:`字母複習 / Alphabet review`,
+   zh:`今天不學新的字母。我們把已經學過的字母再看一次、再聽一次。`,prompt:day.title,reviewLetters:letters,coins:2,xp:4,skill:"reading"},
+  {...common,id:`${world.id}-d${String(dayNo).padStart(2,"0")}-capital`,type:"choice",title:"大寫字母 / Capital letter",
+   zh:`找出大寫 ${target}。`,prompt:`找出 ${target}。 Find capital ${target}.`,choices:letterChoiceOptions(target,lower,dayNo,false),answer:target,coins:3,xp:5,skill:"reading"},
+  {...common,id:`${world.id}-d${String(dayNo).padStart(2,"0")}-lower`,type:"choice",title:"大小寫配對 / Match the pair",
+   zh:`大寫 ${target} 要和哪一個小寫字母配對？`,prompt:`${target} ↔ ?`,choices:letterChoiceOptions(target,lower,dayNo+1,true),answer:lower,coins:3,xp:5,skill:"reading"},
+  {...common,id:`${world.id}-d${String(dayNo).padStart(2,"0")}-listen`,type:"choice",title:"聽字母 / Listen",
+   zh:"按播放，找出你聽到的字母。",prompt:"你聽到哪個字母？ Which letter do you hear?",audioText:target,
+   choices:letterChoiceOptions(target,lower,dayNo+2,false),answer:target,coins:3,xp:6,skill:"listening"},
+  {...common,id:`${world.id}-d${String(dayNo).padStart(2,"0")}-picture`,type:"imagechoice",title:"聲音配圖片 / Sound to picture",
+   zh:`找出 ${target} 今天的圖片單字。`,prompt:`${target} → ${meta.sound}. Which picture matches?`,audioText:`${target}. ${example}.`,
+   choices:letterPictureOptions(target,dayNo+3),answer:example,coins:4,xp:7,skill:"listening"},
+  {...common,id:`${world.id}-d${String(dayNo).padStart(2,"0")}-trace`,type:"trace",title:"再寫一次 / Trace again",
+   zh:`描寫 ${target} 和 ${lower}。`,prompt:`Trace ${target} ${lower}`,traceText:`${target}   ${lower}`,coins:4,xp:6,skill:"writing"},
+  {...common,id:`${world.id}-d${String(dayNo).padStart(2,"0")}-speak`,type:"speak",title:"說出來 / Say it",
+   zh:`說出 ${target} 和 ${example}。`,prompt:`Say: ${target} — ${example}`,audioText:`${target}. ${example}.`,
+   speechTarget:example,allowContains:true,coins:4,xp:7,skill:"speaking"}
+ ];
+}
+function makeDayTasks(world,worldIndex,day,dayIndex){
+ if(day.kind==="letter")return makeLetterTasks(world,worldIndex,day,dayIndex);
+ if(day.kind==="alphaReview")return makeAlphaReviewTasks(world,worldIndex,day,dayIndex);
+ const dayNo=dayIndex+1;
+ const globalDay=worldIndex*10+dayNo;
+ const v=day.vocab;
+ const sentence=day.sentence;
+ const cloze=sentenceCloze(sentence,v);
+ const level=world.level;
+ const coinBase=level==="Beginner"?4:level==="Intermediate"?5:6;
+ const xpBase=level==="Beginner"?7:level==="Intermediate"?9:11;
+ const common={day:dayNo,globalDay,dayFocus:day.title,dayVocab:v,worldName:world.name,worldId:world.id,visualWords:v};
+ const tasks=[
+  {...common,id:`${world.id}-d${String(dayNo).padStart(2,"0")}-listen`,type:"imagechoice",title:"聽一聽，找圖片 / Listen & Find",
+   zh:`第 ${globalDay} 天：先聽聲音，再看圖片選出你聽到的英文。`,prompt:"聽一聽，選出正確圖片。 Listen and choose the picture.",
+   audioText:v[0],choices:choiceOptions(v,v[0],dayNo),answer:v[0],coins:coinBase,xp:xpBase,skill:"listening"},
+  {...common,id:`${world.id}-d${String(dayNo).padStart(2,"0")}-cloze`,type:"choice",title:"閱讀填空 / Read & Complete",
+   zh:`今天重點：${day.title}。讀句子，選出最適合空格的字或片語。`,prompt:cloze.prompt,
+   choices:choiceOptions(v,cloze.answer,dayNo+1),answer:cloze.answer,coins:coinBase,xp:xpBase,skill:"reading"},
+  {...common,id:`${world.id}-d${String(dayNo).padStart(2,"0")}-spell`,type:"text",title:"聽音拼字 / Listen & Type",
+   zh:"聽一聽，把你聽到的英文拼寫或輸入出來。",prompt:"聽完後輸入英文。 Listen, then type what you hear.",
+   audioText:v[1],answer:v[1],coins:coinBase+1,xp:xpBase+1,skill:"writing"},
+  {...common,id:`${world.id}-d${String(dayNo).padStart(2,"0")}-arrange`,type:"arrange",title:"排句子 / Build the Sentence",
+   zh:"把單字依照正確順序排成完整句子。",prompt:"把單字排成句子。 Put the words in the correct order.",
+   answer:sentence,coins:coinBase+1,xp:xpBase+1,skill:"reading"},
+  {...common,id:`${world.id}-d${String(dayNo).padStart(2,"0")}-speak`,type:"speak",title:"開口說 / Speak It",
+   zh:"按下錄音，大聲說出今天的句子。先聽自己的錄音，再送出答案。",prompt:`跟著說：${sentence}`,
+   audioText:sentence,speechTarget:sentence,coins:coinBase+2,xp:xpBase+3,skill:"speaking"}
+ ];
+ if(level!=="Beginner"){
+   tasks.push({...common,id:`${world.id}-d${String(dayNo).padStart(2,"0")}-write`,type:"text",title:"自己造句 / Make Your Own Sentence",
+    zh:`用「${v[2]}」寫一個你自己的完整英文句子。`,prompt:`用 “${v[2]}” 寫一句英文。 Write your own sentence.`,
+    answerFree:true,mustInclude:v[2],coins:coinBase+2,xp:xpBase+3,skill:"writing"});
+ }
+ return tasks;
+}
+
+const worlds=CURRICULUM_DATA.map(w=>({id:w.id,level:w.level,emoji:w.emoji,name:w.name,desc:w.desc,playable:true,totalDays:w.days.length}));
+const lessons={};
+CURRICULUM_DATA.forEach((w,wi)=>{
+ lessons[w.id]=[];
+ w.days.forEach((d,di)=>lessons[w.id].push(...makeDayTasks(w,wi,d,di)));
+});
+const TOTAL_DAYS=CURRICULUM_DATA.reduce((n,w)=>n+w.days.length,0);
+const TOTAL_TASKS=Object.values(lessons).flat().length;
+const UNIQUE_VOCAB=new Set(CURRICULUM_DATA.flatMap(w=>w.days.flatMap(d=>d.vocab.map(x=>String(x).toLowerCase())))).size;
+
+function getDayTasks(worldId,dayNo){return (lessons[worldId]||[]).filter(l=>l.day===dayNo)}
+function isDayComplete(c,worldId,dayNo){
+ const tasks=getDayTasks(worldId,dayNo);return tasks.length>0&&tasks.every(t=>c.completedLessons.includes(t.id));
+}
+function completedDaysForWorld(c,worldId){
+ const w=CURRICULUM_DATA.find(x=>x.id===worldId);if(!w)return 0;
+ return w.days.filter((_,i)=>isDayComplete(c,worldId,i+1)).length;
+}
+function totalCompletedDays(c){
+ let n=0;CURRICULUM_DATA.forEach(w=>{n+=completedDaysForWorld(c,w.id)});return n;
+}
+function nextDailySession(c){
+ for(let wi=0;wi<CURRICULUM_DATA.length;wi++){
+  const w=CURRICULUM_DATA[wi];
+  for(let d=1;d<=w.days.length;d++){
+   if(!isDayComplete(c,w.id,d)){
+    const first=getDayTasks(w.id,d).find(t=>!c.completedLessons.includes(t.id))||getDayTasks(w.id,d)[0];
+    return {world:w,day:d,globalDay:wi*10+d,lesson:first,index:(lessons[w.id]||[]).indexOf(first)};
+   }
+  }
+ }
+ const w=CURRICULUM_DATA[CURRICULUM_DATA.length-1];
+ return {world:w,day:10,globalDay:TOTAL_DAYS,lesson:getDayTasks(w.id,10)[0],index:(lessons[w.id]||[]).indexOf(getDayTasks(w.id,10)[0])};
+}
+
+
+const rewards = [
+ {id:"avatarhat",emoji:"🎩",name:"New avatar hat",desc:"Unlock a fun hat for the child's profile.",price:25,type:"Digital"},
+ {id:"avatarbg",emoji:"🌌",name:"Avatar background",desc:"Pick a new profile background theme.",price:35,type:"Digital"},
+ {id:"story",emoji:"📖",name:"Choose bedtime story",desc:"Pick tonight's family story.",price:40,type:"Privilege"},
+ {id:"music",emoji:"🎵",name:"Choose family music",desc:"Pick dinner or car music.",price:50,type:"Privilege"},
+ {id:"dessert",emoji:"🍨",name:"Choose dessert",desc:"Choose the family's dessert.",price:70,type:"Food"},
+ {id:"latebed",emoji:"🌙",name:"+15 min bedtime",desc:"A slightly later bedtime on an approved night.",price:80,type:"Privilege"},
+ {id:"screen",emoji:"🎮",name:"+15 min game time",desc:"Extra approved game or screen time.",price:100,type:"Privilege"},
+ {id:"snack",emoji:"🍿",name:"Special snack",desc:"Choose a favorite small snack.",price:110,type:"Food"},
+ {id:"breakfast",emoji:"🥞",name:"Choose breakfast",desc:"Pick a special family breakfast.",price:120,type:"Privilege"},
+ {id:"movie",emoji:"🎬",name:"Choose movie night",desc:"You choose the family movie.",price:140,type:"Experience"},
+ {id:"park",emoji:"🛝",name:"Choose the park",desc:"Pick the park or playground.",price:160,type:"Experience"},
+ {id:"friendtime",emoji:"🧑‍🤝‍🧑",name:"Friend playtime request",desc:"Request a playdate or friend activity.",price:180,type:"Experience"},
+ {id:"stickers",emoji:"🌟",name:"Sticker pack",desc:"Choose a fun sticker set.",price:180,type:"Physical"},
+ {id:"pens",emoji:"🖊️",name:"Cool pens",desc:"Choose gel pens or fun stationery.",price:220,type:"Physical"},
+ {id:"stationery",emoji:"✏️",name:"Stationery surprise",desc:"Notebook, eraser, pencil case or supplies.",price:250,type:"Physical"},
+ {id:"smalltoy",emoji:"🧸",name:"Small toy",desc:"Choose a small toy within the family budget.",price:300,type:"Physical"},
+ {id:"book",emoji:"📚",name:"New book",desc:"Choose one new book.",price:350,type:"Physical"},
+ {id:"cards",emoji:"🃏",name:"Trading cards",desc:"A small pack of approved trading cards.",price:375,type:"Physical"},
+ {id:"plush",emoji:"🐻",name:"Small plush toy",desc:"Choose a small stuffed friend.",price:400,type:"Physical"},
+ {id:"craft",emoji:"🎨",name:"Craft kit",desc:"Art, building or science mini-kit.",price:450,type:"Physical"},
+ {id:"puzzle",emoji:"🧩",name:"Puzzle or board game",desc:"A new puzzle or family game.",price:500,type:"Physical"},
+ {id:"sports",emoji:"⚽",name:"Sports gear",desc:"Ball, jump rope or small sports item.",price:550,type:"Physical"},
+ {id:"lego",emoji:"🧱",name:"Small building set",desc:"LEGO or compatible mini set.",price:600,type:"Physical"},
+ {id:"shirt",emoji:"👕",name:"Choose a fun shirt",desc:"Pick an approved shirt or accessory.",price:650,type:"Physical"},
+ {id:"cafe",emoji:"🧋",name:"Cafe date",desc:"Choose a drink/snack outing with a parent.",price:700,type:"Experience"},
+ {id:"bowling",emoji:"🎳",name:"Bowling trip",desc:"A family bowling session.",price:800,type:"Experience"},
+ {id:"arcade",emoji:"🕹️",name:"Arcade outing",desc:"A special family arcade session.",price:850,type:"Experience"},
+ {id:"cinema",emoji:"🍿",name:"Cinema trip",desc:"Choose a family-friendly movie at the cinema.",price:950,type:"Experience"},
+ {id:"museum",emoji:"🦕",name:"Museum / science center",desc:"Choose an educational family outing.",price:1000,type:"Experience"},
+ {id:"water",emoji:"💦",name:"Swimming / water activity",desc:"Pool, water park or approved water day.",price:1100,type:"Experience"},
+ {id:"bigtoy",emoji:"🚀",name:"Big toy goal",desc:"Save for a larger toy within a parent-set budget.",price:1250,type:"Physical"},
+ {id:"adventure",emoji:"🎡",name:"Family adventure",desc:"Choose a special family outing.",price:1400,type:"Experience"},
+ {id:"themepark",emoji:"🎢",name:"Theme park fund",desc:"Contribute toward a special theme-park day.",price:1800,type:"Epic"},
+ {id:"supergoal",emoji:"🏆",name:"Super saver reward",desc:"A parent-approved major reward for long-term saving.",price:2500,type:"Epic"}
+];
+
+function loadState(){
+  try{
+    const s=JSON.parse(localStorage.getItem("linguaquest-state"));
+    if(!s) return structuredClone(defaultState);
+    return {...structuredClone(defaultState),...s, children:{...(s.children||{})}};
+  }catch(e){return structuredClone(defaultState)}
+}
+let state=loadState();
+state.audioOverrides=state.audioOverrides||{};
+state.saveSpeakingRecordings=state.saveSpeakingRecordings!==false;
+state.speakingRecordings=state.speakingRecordings||[];
+
+/* Firebase: paste your Web App config here before GitHub upload, OR paste it in Parent Dashboard. */
+const BUILT_IN_FIREBASE_CONFIG={
+  apiKey:"AIzaSyACgYpAm4oXh3norF98VCbbqHngb0Y5y0M",
+  authDomain:"linguaquest-6496d.firebaseapp.com",
+  projectId:"linguaquest-6496d",
+  storageBucket:"linguaquest-6496d.firebasestorage.app",
+  messagingSenderId:"374683258724",
+  appId:"1:374683258724:web:72a5b63cd9b057b1a77471"
+};
+let fbApp=null,fbAuth=null,fbDb=null,fbStorage=null,fbUser=null,fbUnsub=null,cloudApplying=false,cloudTimer=null;
+const audioCache={};
+const LISTENING_TEXT=Object.fromEntries(Object.values(lessons).flat().filter(l=>l.audioText).map(l=>[l.id,l.audioText]));
+let recordedBlob=null,recordedUrl=null,mediaRecorder=null,recordChunks=[],recordingStartedAt=0;
+let speechRecognition=null,speechRecognitionActive=false;
+let recordingStopPromise=null,recordingStopResolve=null;
+
+function activeFirebaseConfig(){
+ const saved=localStorage.getItem("linguaquest-firebase-config");if(saved){try{return JSON.parse(saved)}catch(e){}}
+ return BUILT_IN_FIREBASE_CONFIG;
+}
+function firebaseConfigReady(c){return !!(c&&c.apiKey&&c.projectId&&c.appId)}
+function cloudStatus(){return fbUser?'<span class="cloudOnline">☁️ Synced</span>':'<span class="cloudLocal">☁️ Sign in</span>'}
+
+function blankFamilyState(){
+ const x=structuredClone(defaultState);
+ x.children={};x.activeChild=null;x.familyInitialized=true;
+ x.audioOverrides={};x.saveSpeakingRecordings=true;x.speakingRecordings=[];x.rewardClaims=[];
+ return x;
+}
+function emptyChild(){
+ return {name:"Learner",avatar:"🧒",xp:0,coins:0,streak:0,lastLearn:null,
+  skills:{listening:0,speaking:0,reading:0,writing:0},completedLessons:[],
+  completedChores:{},pendingChores:[],goal:"story"};
+}
+function ensureAuthGate(){
+ let gate=document.getElementById("authGate");
+ if(!gate){gate=document.createElement("div");gate.id="authGate";gate.className="authGate";document.body.appendChild(gate)}
+ return gate;
+}
+function hideMainApp(){const app=document.querySelector(".app");if(app)app.style.display="none"}
+function showMainApp(){
+ const gate=document.getElementById("authGate");if(gate)gate.remove();
+ const app=document.querySelector(".app");if(app)app.style.display="grid";
+ const ids=Object.keys(state.children||{});
+ if(!ids.length){showChildSetup();return}
+ if(!state.activeChild||!state.children[state.activeChild])state.activeChild=ids[0];
+ refreshMini();renderHome();renderLearn();renderQuests();renderRewards();
+}
+function showConnecting(){
+ hideMainApp();const gate=ensureAuthGate();
+ gate.innerHTML=`<div class="authShell"><div class="authArt"><div><div class="authDragon">🐲</div><h1>LinguaQuest</h1><p>英文學習、家庭任務與獎勵，全都放在一起。 · English adventures, family quests and rewards.</p></div><div class="authFeatures"><div class="authFeature">👂 聽懂 · Listen & understand</div><div class="authFeature">🗣️ 開口說 · Speak & record</div><div class="authFeature">⭐ 賺 XP 與獎勵 · Earn rewards</div></div></div><div class="authForm"><h2>正在連接家庭帳號… · Connecting</h2><p>請稍等一下 · Please wait.</p><div class="loadingDots">● ● ●</div></div></div>`;
+}
+function showLoginGate(message=""){
+ hideMainApp();const gate=ensureAuthGate();
+ gate.innerHTML=`<div class="authShell">
+ <div class="authArt"><div><div class="authDragon">🐲</div><h1>Learn English.<br>Grow every day.</h1><p>龍龍會用中文幫你理解任務，一步一步練習聽、說、讀、寫。</p></div>
+ <div class="authFeatures"><div class="authFeature">🎯 每個孩子都有自己的進度</div><div class="authFeature">🏠 英文學習 + 家庭任務</div><div class="authFeature">🎁 存金幣兌換獎勵</div></div></div>
+ <div class="authForm"><span class="badge" style="width:max-content">家庭帳號 · Family account</span><h2 style="margin-top:10px">歡迎來到 LinguaQuest</h2><p>家長登入家庭帳號後，每個孩子使用自己的個人檔案，XP 與金幣都分開保存。</p>
+ <div id="authError" class="authError ${message?"show":""}">${esc(message)}</div>
+ <div class="formField"><label>家長 Email · Family email</label><input id="fbEmail" type="email" autocomplete="email" placeholder="parent@example.com"></div>
+ <div class="formField"><label>密碼 · Password</label><input id="fbPassword" type="password" autocomplete="current-password" placeholder="至少 6 個字元 · 6+ characters" onkeydown="if(event.key==='Enter')firebaseLogin(false)"></div>
+ <div class="authActions"><button class="bigPrimary" onclick="firebaseLogin(false)">登入 · Sign in</button><button class="secondary" onclick="firebaseLogin(true)">建立家庭帳號 · Create account</button></div>
+ <div class="authHint">If Firebase says <b>operation-not-allowed</b>, enable Email/Password under Firebase → Authentication → Sign-in method.</div>
+ </div></div>`;
+}
+function showAuthError(msg){
+ const e=document.getElementById("authError");if(e){e.textContent=msg;e.classList.add("show")}else showLoginGate(msg);
+}
+let chosenAvatar="🧒";
+function chooseSetupAvatar(btn,val){
+ chosenAvatar=val;document.querySelectorAll(".avatarChoice").forEach(x=>x.classList.remove("active"));btn.classList.add("active");
+}
+function showChildSetup(){
+ hideMainApp();const gate=ensureAuthGate();
+ gate.innerHTML=`<div class="authShell">
+ <div class="authArt"><div><div class="authDragon">🐲</div><h1>建立第一個孩子的學習檔案</h1><p>每個孩子都有自己的英文進度、XP、金幣和獎勵目標。</p></div><div class="authFeatures"><div class="authFeature">⭐ Individual XP</div><div class="authFeature">🪙 Individual coin wallet</div><div class="authFeature">📈 Individual skill progress</div></div></div>
+ <div class="authForm"><span class="badge" style="width:max-content">Signed in: ${esc(fbUser?.email||"family")}</span><h2 style="margin-top:10px">第一位學習者是誰？ · Who will learn first?</h2><p>沒有示範帳號。請建立孩子真正的學習檔案。</p>
+ <div id="authError" class="authError"></div>
+ <div class="formField"><label>孩子名字 · Child name</label><input id="firstChildName" maxlength="30" placeholder="名字或暱稱 · Name or nickname" onkeydown="if(event.key==='Enter')createFirstChild()"></div>
+ <label style="font-size:13px;font-weight:850;color:var(--muted)">選擇頭像 · Choose an avatar</label>
+ <div class="avatarChoices">
+ ${["👦","👧","🧒","🐼","🦊","🐯","🐰","🐲"].map((a,i)=>`<button class="avatarChoice ${i===2?"active":""}" onclick="chooseSetupAvatar(this,'${a}')">${a}</button>`).join("")}
+ </div>
+ <div class="authActions"><button class="bigPrimary" onclick="createFirstChild()">建立檔案並開始 · Create & start</button><button class="secondary" onclick="cloudSignOut()">登出 · Sign out</button></div>
+ </div></div>`;
+}
+async function createFirstChild(){
+ const name=document.getElementById("firstChildName")?.value.trim();
+ if(!name){showAuthError("Enter your child's name or nickname.");return}
+ state=blankFamilyState();
+ const id="child_"+Date.now();
+ state.children[id]={...emptyChild(),name,avatar:chosenAvatar};
+ state.activeChild=id;state.familyInitialized=true;
+ save();
+ showMainApp();
+}
+
+async function initFirebase(){
+ const cfg=activeFirebaseConfig();
+ showConnecting();
+ if(!firebaseConfigReady(cfg)){showLoginGate("Firebase configuration is missing.");return false}
+ try{
+  if(!firebase.apps.length)fbApp=firebase.initializeApp(cfg);else fbApp=firebase.app();
+
+  // Firebase App Check with reCAPTCHA Enterprise.
+  // This public site key is safe to include in browser code.
+  const fbAppCheck=firebase.appCheck();
+  fbAppCheck.activate(
+    new firebase.appCheck.ReCaptchaEnterpriseProvider(
+      "6LcPBLctAAAAAMV18y2xJV-o9Jp0XVSmt5DqqxI2"
+    ),
+    true // Automatically refresh App Check tokens.
+  );
+
+  fbAuth=firebase.auth();fbDb=firebase.firestore();fbStorage=firebase.storage();
+  fbAuth.onAuthStateChanged(u=>{
+    fbUser=u||null;
+    if(fbUser)startCloudSync();
+    else{
+      if(fbUnsub)fbUnsub();fbUnsub=null;
+      showLoginGate();
+    }
+  });
+  return true;
+ }catch(e){console.error(e);showLoginGate("Firebase could not initialize: "+e.message);return false}
+}
+function startCloudSync(){
+ if(!fbUser||!fbDb)return;
+ if(fbUnsub)fbUnsub();
+ showConnecting();
+ const ref=fbDb.doc(`users/${fbUser.uid}/app/state`);
+ fbUnsub=ref.onSnapshot(async snap=>{
+  if(snap.exists){
+    cloudApplying=true;
+    const d=snap.data();
+    state={...blankFamilyState(),...d,children:{...(d.children||{})}};
+    state.audioOverrides=state.audioOverrides||{};
+    state.speakingRecordings=state.speakingRecordings||[];
+    localStorage.setItem("linguaquest-state",JSON.stringify(state));
+    cloudApplying=false;
+    if(Object.keys(state.children||{}).length)showMainApp();else showChildSetup();
+  }else{
+    // New account: NEVER upload old demo/local profiles.
+    state=blankFamilyState();
+    localStorage.setItem("linguaquest-state",JSON.stringify(state));
+    try{
+      await ref.set(state);
+      showChildSetup();
+    }catch(e){
+      console.error(e);
+      showLoginGate("You signed in, but Firestore blocked access. Finish your Firestore security rules, then sign in again.");
+    }
+  }
+ },e=>{
+   console.error("Cloud sync",e);
+   showLoginGate("Firebase sign-in worked, but Firestore access is blocked. Please finish the Firestore rules first.");
+ });
+}
+function save(){
+ localStorage.setItem("linguaquest-state",JSON.stringify(state));
+ if(fbUser&&fbDb&&!cloudApplying){
+   clearTimeout(cloudTimer);
+   cloudTimer=setTimeout(()=>fbDb.doc(`users/${fbUser.uid}/app/state`).set(state).catch(e=>console.warn("Cloud save",e)),180)
+ }
+}
+async function firebaseLogin(create){
+ const email=document.querySelector("#fbEmail")?.value.trim(),password=document.querySelector("#fbPassword")?.value;
+ if(!email||!password){showAuthError("Enter both your family email and password.");return}
+ if(password.length<6&&create){showAuthError("Firebase passwords need at least 6 characters.");return}
+ if(!fbAuth){const ok=await initFirebase();if(!ok)return}
+ try{
+  showConnecting();
+  if(create)await fbAuth.createUserWithEmailAndPassword(email,password);
+  else await fbAuth.signInWithEmailAndPassword(email,password);
+  // onAuthStateChanged continues the flow.
+ }catch(e){
+  console.error(e);
+  let msg=e.message||"Could not sign in.";
+  if(e.code==="auth/operation-not-allowed")msg="Email/Password login is not enabled yet. In Firebase: Authentication → Sign-in method → Email/Password → Enable.";
+  if(e.code==="auth/invalid-credential")msg="The email or password is incorrect, or this family account does not exist yet.";
+  if(e.code==="auth/email-already-in-use")msg="That email already has an account. Use Sign in instead.";
+  if(e.code==="auth/unauthorized-domain")msg="This GitHub Pages domain is not authorized in Firebase Authentication settings.";
+  showLoginGate(msg);
+ }
+}
+async function cloudSignOut(){
+ if(fbAuth)await fbAuth.signOut();
+ fbUser=null;showLoginGate();
+}
+async function saveFirebaseConfig(){
+ const raw=document.querySelector("#firebaseConfigInput")?.value.trim();if(!raw)return;
+ try{const c=JSON.parse(raw);if(!firebaseConfigReady(c))throw new Error("Config needs apiKey, projectId and appId.");localStorage.setItem("linguaquest-firebase-config",JSON.stringify(c));location.reload()}catch(e){showAuthError("Invalid Firebase config JSON: "+e.message)}
+}
+function clearFirebaseConfig(){if(confirm("Clear the locally saved Firebase config?")){localStorage.removeItem("linguaquest-firebase-config");location.reload()}}
+function refreshVisible(){
+ if(!fbUser)return;
+ refreshMini();
+ if(!document.querySelector("#page-home").classList.contains("hidden"))renderHome();
+ if(!document.querySelector("#page-learn").classList.contains("hidden"))renderLearn();
+ if(!document.querySelector("#page-quests").classList.contains("hidden"))renderQuests();
+ if(!document.querySelector("#page-rewards").classList.contains("hidden"))renderRewards();
+}
+function findLesson(id){return Object.values(lessons).flat().find(x=>x.id===id)}
+
+function child(){return (state.children&&state.children[state.activeChild])||emptyChild()}
+function today(){return new Date().toISOString().slice(0,10)}
+function levelFromXP(xp){return xp<5000?"Beginner":xp<11500?"Intermediate":"Advanced"}
+function levelName(xp){return xp<5000?"Beginner Explorer":xp<11500?"Intermediate Builder":"Advanced Communicator"}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+
+function topbar(title,sub){
+ return `<div class="topbar"><div class="greeting"><h2>${title}</h2><p>${sub}</p></div>
+ <div class="topstats"><div class="pill">${cloudStatus()}</div><div class="pill">🔥 ${child().streak} 天 / day streak</div><div class="pill">⭐ ${child().xp} XP</div><div class="pill">🪙 ${child().coins} 金幣</div></div></div>`;
+}
+function companion(textZh,textEn=""){
+ return `<div class="card companionCard"><div class="mascot">🐲</div><strong>龍龍 Longlong</strong>
+ <div class="speech"><b>${textZh}</b>${textEn?`<br><span style="color:var(--muted)">${textEn}</span>`:""}</div></div>`;
+}
+function renderHome(){
+ const c=child(),session=nextDailySession(c);
+ const goal=rewards.find(r=>r.id===c.goal)||rewards[0];
+ const doneDays=totalCompletedDays(c);
+ const dayData=CURRICULUM_DATA.find(w=>w.id===session.world.id).days[session.day-1];
+ document.querySelector("#page-home").innerHTML =
+ topbar(`嗨，${esc(c.name)}！ Hi! 👋`,`每天一小課，從 A–Z 一步一步走到日常英文會話。 One gentle lesson every day.`) +
+ `<div class="grid">
+  <div class="card hero"><div class="eyebrow">今日課程 · TODAY'S LESSON</div>
+  <div class="dayBadge">📅 第 ${session.globalDay} 天 / Day ${session.globalDay} of ${TOTAL_DAYS}</div>
+  <h3>${session.world.emoji} ${worldZh(session.world.id)} <small style="font-size:.55em;opacity:.86">/ ${session.world.name}</small></h3>
+  <p><b>${esc(dayData.title)}</b> · ${dayData.kind==="letter"?"今天只專心認識一個字母：大小寫、字母名稱、聲音、圖片、描寫和韻律。":"今天會練習聽、看圖、閱讀、拼字、句子和口說。"}</p>
+  <div class="heroActions"><button class="primary" onclick="startDailySession('${session.world.id}',${session.day})">開始今天課程 · Start ✨</button><button class="primary" style="background:rgba(255,255,255,.16);color:#fff" onclick="navigate('learn')">學習地圖 · Learning map</button></div></div>
+  ${companion("不用一次學很多！看圖片、聽聲音、跟著我慢慢說。每天進步一點點就很棒。","Pictures first, sounds next, then speaking—one small step at a time.")}
+ </div>
+ <div class="curriculumStats">
+   <div class="curriculumStat"><strong>${TOTAL_DAYS}</strong><small>每日課程 · daily lessons</small></div>
+   <div class="curriculumStat"><strong>${TOTAL_TASKS.toLocaleString()}</strong><small>互動任務 · activities</small></div>
+   <div class="curriculumStat"><strong>${UNIQUE_VOCAB.toLocaleString()}+</strong><small>字彙 · vocabulary</small></div>
+   <div class="curriculumStat"><strong>${doneDays}/${TOTAL_DAYS}</strong><small>完成天數 · completed</small></div>
+ </div>
+ <div class="sectionTitle"><div><h3>四項英文能力 · Your 4 English Skills</h3><p>學習進度只由英文任務提升；家事只賺獎勵金幣。</p></div><span class="badge">${LEVEL_ZH[levelFromXP(c.xp)]} · ${levelName(c.xp)}</span></div>
+ <div class="grid">${skillCard("👂","Listening",c.skills.listening)}${skillCard("🗣️","Speaking",c.skills.speaking)}${skillCard("📖","Reading",c.skills.reading)}${skillCard("✍️","Writing",c.skills.writing)}</div>
+ <div class="sectionTitle"><div><h3>我的存錢目標 · My Saving Goal</h3><p>完成英文學習與家庭任務都可以累積金幣。</p></div></div>
+ <div class="card goal"><div style="display:flex;justify-content:space-between;align-items:center;gap:16px"><div><div style="font-size:40px">${goal.emoji}</div><h3 style="margin:5px 0">${rewardZh(goal.id)||goal.name}<small style="display:block;font-size:13px;color:var(--muted);font-weight:700">${goal.name}</small></h3><p style="margin:0;color:var(--muted)">${goal.desc}</p></div><div style="text-align:right"><strong style="font-size:24px">${c.coins}/${goal.price}</strong><br><span class="coin">🪙 還差 ${Math.max(0,goal.price-c.coins)} / ${Math.max(0,goal.price-c.coins)} to go</span></div></div>
+ <div class="bar"><i style="width:${Math.min(100,c.coins/goal.price*100)}%"></i></div></div>`;
+}
+function skillCard(icon,name,val){return `<div class="card skill"><div class="skillTop"><div><small style="color:var(--muted)">${SKILL_ZH[name]} · ${name}</small><h3 style="margin:4px 0">${val}%</h3></div><div class="skillIcon">${icon}</div></div><div class="bar"><i style="width:${val}%"></i></div></div>`}
+
+function renderLearn(level="Beginner"){
+ const c=child();
+ const levelWorlds=worlds.filter(w=>w.level===level);
+ const levelDays=levelWorlds.reduce((n,w)=>n+w.totalDays,0);
+ const completed=levelWorlds.reduce((n,w)=>n+completedDaysForWorld(c,w.id),0);
+ document.querySelector("#page-learn").innerHTML = topbar("學習地圖 · Learning Adventure",`${TOTAL_DAYS} 天：從字母、拼音、單字、片語一路到日常會話。`)+
+ `<div class="tabstrip">${["Beginner","Intermediate","Advanced"].map(x=>`<button class="${x===level?"active":""}" onclick="renderLearn('${x}')">${LEVEL_ZH[x]} · ${x}</button>`).join("")}</div>
+ <div class="notice good">📚 <b>${LEVEL_ZH[level]}共有 ${levelDays} 天課程。</b> 已完成 ${completed}/${levelDays}。初級每天約 5–8 個短任務，中高級約 6 個。</div>
+ <div class="sectionTitle"><div><h3>${LEVEL_ZH[level]} · ${level}</h3><p>${level==="Beginner"?"先學 A–Z 大小寫與字母聲音，再進入 phonics、單字、高頻字與生活字彙。":level==="Intermediate"?"用圖片和情境學片語、描述、日常問句與實用英文。":"在真實情境中練文法、敘事、解決問題和持續會話。"}</p></div></div>
+ <div class="worlds">${levelWorlds.map(w=>{
+   const doneDays=completedDaysForWorld(c,w.id);
+   const nextDay=Math.min(w.totalDays,doneDays+1);
+   const data=CURRICULUM_DATA.find(x=>x.id===w.id);
+   return `<button class="world" onclick="startWorld('${w.id}')"><span class="tag">${doneDays}/${w.totalDays} 天 · days</span><span class="emoji">${w.emoji}</span><h4>${worldZh(w.id)||w.name}<small style="display:block;font-size:12px;color:var(--muted);font-weight:750;margin-top:3px">${w.name}</small></h4><p>${w.desc}</p><p style="margin-top:8px;font-size:12px"><b>下一課 Next:</b> Day ${nextDay} · ${esc(data.days[nextDay-1].title)}</p><div class="bar"><i style="width:${doneDays/w.totalDays*100}%"></i></div></button>`
+ }).join("")}</div>`;
+}
+
+function renderQuests(){
+ const c=child(),pending=c.pendingChores||[],session=nextDailySession(c),dayTasks=getDayTasks(session.world.id,session.day);
+ const sessionCoins=dayTasks.reduce((n,t)=>n+t.coins,0),sessionXP=dayTasks.reduce((n,t)=>n+t.xp,0);
+ const dayData=CURRICULUM_DATA.find(w=>w.id===session.world.id).days[session.day-1];
+ document.querySelector("#page-quests").innerHTML = topbar("今日任務 · Today's Quests","完成一課英文，再幫忙一點家事。 Learn + help at home.")+
+ `<div class="grid">
+ <div class="card" style="grid-column:span 6"><h3>🧠 今日英文 · Today's Learning</h3><p style="color:var(--muted)">第 ${session.globalDay}/${TOTAL_DAYS} 天 · ${worldZh(session.world.id)} / ${session.world.name}</p>
+ <div class="quest"><div><h4>${session.world.emoji} ${esc(dayData.title)}</h4><p>${dayTasks.length} 個小任務 · ${dayData.kind==="letter"?"大小寫、聲音、圖片、描寫、口說":"聽力、閱讀、書寫與口說"}</p></div><div><span class="coin">+${sessionCoins} 🪙</span><br><span class="xp">+${sessionXP} XP</span></div></div>
+ <button class="bigPrimary" onclick="startDailySession('${session.world.id}',${session.day})">開始今天課程 · Start lesson</button>
+ </div>
+ <div class="card" style="grid-column:span 6"><h3>🏠 家庭任務 · Home Quests</h3><p style="color:var(--muted)">完成後送給家長確認，確認後才會得到金幣。</p>
+ ${state.chores.slice(0,7).map(q=>`<div class="quest"><div><h4>${q.zh}<small style="display:block;color:var(--muted);font-weight:700">${q.name}</small></h4><p>${q.category}</p></div>${pending.includes(q.id)?`<span class="badge">等待家長確認 · Pending</span>`:`<button class="secondary" onclick="submitChore('${q.id}')">完成 Done · +${q.coins}</button>`}</div>`).join("")}
+ </div></div>
+ <div class="sectionTitle"><div><h3>全部家庭任務 · All Home Quests</h3><p>基本責任少量金幣，額外幫忙則有較高金幣。</p></div></div>
+ <div class="card" style="overflow:auto"><table class="table"><thead><tr><th>任務 Task</th><th>中文</th><th>類型 Type</th><th>頻率 Schedule</th><th>金幣 Coins</th></tr></thead><tbody>
+ ${state.chores.map(q=>`<tr><td><b>${q.name}</b></td><td>${q.zh}</td><td>${q.category}</td><td>${q.freq}</td><td class="coin">+${q.coins}</td></tr>`).join("")}
+ </tbody></table></div>`;
+}
+
+function renderRewards(filter="All"){
+ const c=child(),types=["All",...new Set(rewards.map(r=>r.type))];
+ const typeZh={All:"全部",Digital:"數位",Privilege:"特權",Food:"點心",Experience:"體驗",Physical:"實體",Epic:"大獎"};
+ document.querySelector("#page-rewards").innerHTML = topbar("獎勵商店 · Mega Reward Shop","現在兌換小獎勵，或為更大的目標存金幣。")+
+ `<div class="notice">🪙 你目前有 <b>${c.coins} 金幣</b>。 You have <b>${c.coins} Coins</b>.</div>
+ <div class="tabstrip" style="margin-top:18px">${types.map(t=>`<button class="${t===filter?"active":""}" onclick="renderRewards('${t}')">${typeZh[t]||t} · ${t}</button>`).join("")}</div>
+ <div class="rewardGrid">${rewards.filter(r=>filter==="All"||r.type===filter).map(r=>`<div class="reward"><div class="art">${r.emoji}</div><span class="badge">${typeZh[r.type]||r.type} · ${r.type}</span><h4>${rewardZh(r.id)||r.name}<small style="display:block;font-size:12px;color:var(--muted);font-weight:700;margin-top:3px">${r.name}</small></h4><p>${r.desc}</p><div class="price"><b class="coin">🪙 ${r.price}</b><div><button class="secondary" onclick="setGoal('${r.id}')">${c.goal===r.id?"目標 ✓ Goal":"設為目標 · Goal"}</button> <button class="secondary" onclick="buyReward('${r.id}')" ${c.coins<r.price?"disabled":""}>兌換 · Redeem</button></div></div></div>`).join("")}</div>`;
+}
+
+function firebasePanel(){
+ const cfg=firebaseConfigReady(activeFirebaseConfig());
+ if(fbUser)return `<div class="card cloudBox"><div class="quest"><div><h3 style="margin:0">✅ Cloud connected</h3><p>Signed in as <b>${esc(fbUser.email||"family account")}</b>. Child points, XP, chores and rewards sync across devices.</p></div><button class="secondary" onclick="cloudSignOut()">登出 · Sign out</button></div></div>`;
+ if(!cfg)return `<div class="card cloudBox"><h3>1. Connect Firebase</h3><div class="notice warn">Paste your Firebase Web App config JSON here, or embed it permanently in <b>BUILT_IN_FIREBASE_CONFIG</b> inside index.html before uploading to GitHub.</div><div class="formField"><label>Firebase config JSON</label><textarea id="firebaseConfigInput" rows="7" placeholder='{"apiKey":"...","authDomain":"...","projectId":"...","storageBucket":"...","messagingSenderId":"...","appId":"..."}'></textarea></div><button class="bigPrimary" onclick="saveFirebaseConfig()">Save & reload</button></div>`;
+ return `<div class="card cloudBox"><h3>2. Sign into your family cloud</h3><p>Use the same family email/password on each child's device. Each child still keeps an individual profile and point balance.</p><div class="parentGrid"><div><div class="formField"><label>Email</label><input id="fbEmail" type="email" placeholder="parent@example.com"></div><div class="formField"><label>密碼 · Password</label><input id="fbPassword" type="password" placeholder="Family password"></div></div><div style="display:flex;gap:8px;align-items:end;flex-wrap:wrap"><button class="bigPrimary" onclick="firebaseLogin(false)">登入 · Sign in</button><button class="secondary" onclick="firebaseLogin(true)">建立家庭帳號 · Create account</button><button class="secondary" onclick="clearFirebaseConfig()">Change config</button></div></div></div>`;
+}
+function audioManager(){
+ const all=Object.values(lessons).flat().filter(l=>LISTENING_TEXT[l.id]);
+ return `<div class="notice good">Upload MP3/WAV pronunciation files. Listening tasks use your recording first; otherwise they fall back to browser text-to-speech.</div><div class="parentGrid"><div class="formField"><label>Listening lesson</label><select id="audioLessonSelect">${all.map(l=>`<option value="${l.id}">${l.id} · ${l.title} — ${LISTENING_TEXT[l.id]}</option>`).join("")}</select></div><div class="formField"><label>Pronunciation audio</label><input id="audioFileInput" type="file" accept="audio/*"></div></div><button class="bigPrimary" onclick="uploadLessonAudio()">Upload pronunciation audio</button><div style="margin-top:14px">${Object.entries(state.audioOverrides||{}).length?Object.keys(state.audioOverrides).map(id=>`<div class="quest"><div><h4>${findLesson(id)?.title||id}</h4><p>Custom pronunciation audio stored in Firebase Storage.</p></div><button class="secondary" onclick="playLessonAudio('${id}')">▶ Play</button></div>`).join(""):`<p style="color:var(--muted)">No custom audio uploaded yet.</p>`}</div>`;
+}
+function renderParent(){
+ const c=child(),recent=(state.speakingRecordings||[]).slice().reverse().slice(0,20);
+ document.querySelector("#page-parent").innerHTML = topbar("Parent Dashboard","Cloud sync, chore approval, pronunciation audio and speaking review.")+
+ `<div class="switcher">${Object.entries(state.children).map(([id,k])=>`<button class="childBtn ${id===state.activeChild?"active":""}" onclick="switchChild('${id}')">${k.avatar} ${esc(k.name)}</button>`).join("")}<button class="childBtn" onclick="addChild()">＋ Add child</button></div>
+ <div class="sectionTitle"><div><h3>☁️ Firebase family sync</h3><p>One family account, separate child balances.</p></div></div>${firebasePanel()}
+ <div class="sectionTitle"><div><h3>${c.avatar} ${esc(c.name)} overview</h3><p>${levelName(c.xp)} · ${c.xp} XP · ${c.coins} coins</p></div></div>
+ <div class="parentGrid"><div class="card"><h3>Pending chore approvals</h3>${(c.pendingChores||[]).length?c.pendingChores.map(id=>{const q=state.chores.find(x=>x.id===id);return `<div class="quest"><div><h4>${q.name}</h4><p>${q.zh}</p></div><div><button class="bigPrimary" onclick="approveChore('${id}')">Approve +${q.coins}</button> <button class="secondary" onclick="rejectChore('${id}')">Not yet</button></div></div>`}).join(""):`<p style="color:var(--muted)">Nothing waiting right now.</p>`}</div>
+ <div class="card"><h3>Learning mastery</h3>${["listening","speaking","reading","writing"].map(x=>`<div style="margin:14px 0"><div style="display:flex;justify-content:space-between"><b>${x[0].toUpperCase()+x.slice(1)}</b><span>${c.skills[x]}%</span></div><div class="bar"><i style="width:${c.skills[x]}%"></i></div></div>`).join("")}</div></div>
+ <div class="sectionTitle"><div><h3>🔊 Listening pronunciation library</h3><p>Store your own audio for clearer, consistent pronunciation support.</p></div></div><div class="card">${audioManager()}</div>
+ <div class="sectionTitle"><div><h3>🎤 Speaking recordings</h3><p>Children can record, replay, and optionally save their voice for parent review.</p></div></div><div class="card"><div class="quest"><div><h4>Save speaking clips to Firebase Storage</h4><p>Keep this on only if you want the recordings stored. Turn it off anytime.</p></div><button class="secondary" onclick="toggleSpeakingSave()">${state.saveSpeakingRecordings?"ON ✓":"OFF"}</button></div>
+ ${recent.length?recent.map((r,i)=>`<div class="quest"><div><h4>${esc(r.childName||"Child")} · ${esc(r.lessonTitle||"Speaking practice")}</h4><p>${r.transcript?`Transcript: “${esc(r.transcript)}” · `:""}${r.createdAt?new Date(r.createdAt).toLocaleString():""}</p><div id="recplay-${i}"></div></div><button class="secondary" onclick="playCloudRecording('${esc(r.storagePath)}','recplay-${i}')">▶ Listen</button></div>`).join(""):`<p style="color:var(--muted)">No saved speaking clips yet.</p>`}</div>
+ <div class="sectionTitle"><div><h3>Controls</h3><p>Parent PIN protects the in-app dashboard.</p></div></div><div class="card"><div class="quest"><div><h4>Parent PIN</h4><p>Current PIN: <b>${state.parentPin}</b></p></div><button class="secondary" onclick="changePin()">Change PIN</button></div><div class="quest"><div><h4>Backup progress</h4><p>Export current state as JSON.</p></div><button class="secondary" onclick="exportData()">Export</button></div><div class="quest"><div><h4>Reset local app</h4><p>Cloud data is not deleted by this button.</p></div><button class="secondary" onclick="resetApp()">Reset local</button></div></div>
+ <div class="sectionTitle"><div><h3>Reward requests</h3><p>Redeemed rewards are fulfilled by a parent.</p></div></div><div class="card">${state.rewardClaims.length?state.rewardClaims.slice().reverse().map(x=>`<div class="quest"><div><h4>${x.child} requested ${x.reward}</h4><p>${new Date(x.time).toLocaleString()}</p></div><span class="badge">${x.status}</span></div>`).join(""):`<p style="color:var(--muted)">No reward claims yet.</p>`}</div>`;
+}
+
+function navigate(page){
+ document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));
+ document.querySelector("#page-"+page).classList.remove("hidden");
+ document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
+ if(page==="home")renderHome(); if(page==="learn")renderLearn(); if(page==="quests")renderQuests(); if(page==="rewards")renderRewards(); if(page==="parent")showParentGate();
+}
+document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>navigate(b.dataset.page));
+
+function showParentGate(){
+ const root=document.querySelector("#page-parent");
+ root.innerHTML=`${topbar("家長中心 · Parent Dashboard","家長專用設定與審核。 Protected family controls.")}<div class="card" style="max-width:520px;margin:30px auto;text-align:center"><div style="font-size:52px">🔐</div><h3>家長驗證 · Parent access</h3><p style="color:var(--muted)">請輸入家長 PIN。第一次使用預設為 <b>2468</b>。</p><div class="inputRow"><input id="pinInput" type="password" inputmode="numeric" placeholder="PIN"><button class="bigPrimary" onclick="checkPin()">開啟 · Open</button></div></div>`;
+}
+function checkPin(){if(document.querySelector("#pinInput").value===state.parentPin)renderParent();else alert("Incorrect PIN")}
+
+function startWorld(id){
+ const ls=lessons[id]||[];
+ const next=ls.find(l=>!child().completedLessons.includes(l.id));
+ if(!next){
+   if(confirm("This world is complete! Review Day 1 without earning duplicate points?"))startDailySession(id,1);
+   return;
+ }
+ startDailySession(id,next.day||1);
+}
+function startDailySession(worldId,dayNo){
+ const arr=lessons[worldId]||[];
+ const dayTasks=getDayTasks(worldId,dayNo);
+ if(!dayTasks.length){alert("This daily session is not available.");return}
+ const next=dayTasks.find(l=>!child().completedLessons.includes(l.id))||dayTasks[0];
+ openLesson(worldId,next,arr.indexOf(next));
+}
+function lessonMeta(l){
+ if(!l.dayVocab)return "";
+ const zhWorld=worldZh(l.worldId||"");
+ const visuals=(l.type==="letterintro"||l.type==="alphareviewintro")?"":visualStrip(l.visualWords||l.dayVocab);
+ return `<div class="vocabStrip"><div class="vocabStripTop"><b>📘 第 ${l.globalDay} 天 / Day ${l.globalDay}/${TOTAL_DAYS} · ${esc(l.dayFocus)}</b><span>${esc(zhWorld)}${zhWorld?" · ":""}${esc(l.worldName||"")}</span></div>
+ ${visuals}<div class="vocabChips">${l.dayVocab.slice(0,8).map(v=>`<span class="vocabChip">${esc(v)}${zhWord(v)?` · ${esc(zhWord(v))}`:""}</span>`).join("")}</div></div>`;
+}
+function openLesson(worldId,l,idx){
+ selectedChoice=null;spokenOk=false;recognizedText="";arrangedWords=[];recordedBlob=null;traceHasInk=false;
+ if(recordedUrl)URL.revokeObjectURL(recordedUrl);recordedUrl=null;
+ const root=document.querySelector("#modalRoot");
+ const dayTasks=getDayTasks(worldId,l.day||1),dayPos=Math.max(0,dayTasks.findIndex(x=>x.id===l.id))+1;
+ root.innerHTML=`<div class="modalBackdrop"><div class="modal"><div class="modalHead"><div><span class="badge">${esc(worldZh(worldId)||"學習")} · ${esc(worlds.find(w=>w.id===worldId)?.name||"Mission")}</span><h2 style="margin:7px 0">${esc(l.title)}</h2></div><button class="close" onclick="closeModal()">✕</button></div>
+ <div style="display:flex;justify-content:space-between;color:var(--muted);font-size:13px;font-weight:800"><span>第 ${l.day}/10 天 · Day ${l.day}/10</span><span>任務 ${dayPos}/${dayTasks.length} · Task</span></div>
+ <div class="progressLine"><i style="width:${dayPos/dayTasks.length*100}%"></i></div>
+ <div class="lessonMascot"><div class="mascot">🐲</div><div><b>龍龍說：</b><p>${l.zh}</p><small style="color:var(--muted)">先用中文了解要做什麼，再慢慢練英文。 Chinese helps you understand; English is what you practice.</small></div></div>
+ <div class="taskBox">${lessonMeta(l)}${taskHTML(l)}</div><div id="feedback"></div>
+ <div class="actionRow"><span><span class="coin">+${l.coins} 🪙</span> · <span class="xp">+${l.xp} XP</span></span><button class="bigPrimary" onclick="checkTask('${worldId}','${l.id}',${idx})">${l.type==="letterintro"||l.type==="alphareviewintro"||l.type==="chant"?"完成練習 · Done":"檢查答案 · Check"} ✨</button></div></div></div>`;
+ if(l.type==="trace")setTimeout(setupTraceCanvas,40);
+ if(LISTENING_TEXT[l.id]&&(l.type==="letterintro"||l.type==="chant"))setTimeout(()=>playLessonAudio(l.id),450);
+}
+function listeningSupport(l){return LISTENING_TEXT[l.id]?`<div class="recordBox"><b>👂 聽力練習 · Listening</b><br><button class="secondary" style="margin-top:8px" onclick="playLessonAudio('${l.id}')">🔊 播放聲音 · Play audio</button><span class="badge" style="margin-left:8px">${state.audioOverrides?.[l.id]?"家長錄音 · Custom audio":"系統語音 · Voice fallback"}</span></div>`:""}
+function taskHTML(l){
+ const listen=listeningSupport(l);
+ if(l.type==="letterintro"){
+   return `<div class="letterStage">
+    <div class="letterPanel"><div><div class="bigLetters">${esc(l.letter)} ${esc(l.lower)}</div><div class="letterLabels"><span>大寫 · CAPITAL</span><span>小寫 · lowercase</span></div><div class="soundPill">🔊 基礎聲音 · sound: ${esc(l.sound)}</div><div style="margin-top:13px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap"><button class="secondary" onclick="speak('${esc(l.letter)}')">聽字母 ${esc(l.letter)}</button><button class="secondary" onclick="playLessonAudio('${l.id}')">聽範例 · Listen</button></div></div></div>
+    <div class="pictureHero"><div class="heroEmoji">${l.emoji||guessPicture(l.example)}</div><h3>${esc(l.example)}</h3><p>${esc(l.zhWord||zhWord(l.example))}</p><small style="margin-top:8px;color:var(--muted)">${esc(l.letter)} is for ${esc(l.example)}</small></div>
+   </div>`;
+ }
+ if(l.type==="alphareviewintro"){
+   return `<h3>${esc(l.prompt)}</h3><p class="taskBilingualHint">看看大小寫，慢慢念出你認得的字母。 Look, point, and name the letters you know.</p>
+   <div class="alphaReviewBoard">${(l.reviewLetters||[]).map(x=>`<div class="alphaTile">${esc(x)}<small style="font-size:13px;margin-left:2px">${esc(String(x).toLowerCase())}</small></div>`).join("")}</div>${visualStrip(l.visualWords||[])}`;
+ }
+ if(l.type==="imagechoice")return `<h3>${l.prompt}</h3>${listen}<div class="imageChoices">${l.choices.map(c=>`<button class="imageChoice" data-value="${esc(c)}" onclick="selectChoice(this)">${visualCard(c,{hideText:true})}<div style="font-size:12px;color:var(--muted);font-weight:800;margin-top:4px">點圖片 · tap</div></button>`).join("")}</div>`;
+ if(l.type==="choice"){
+   const bigLetter=!!l.letter && (String(l.answer).length===1);
+   return `<h3>${l.prompt}</h3>${listen}<div class="choices">${l.choices.map(c=>`<button class="choice" style="${bigLetter?"font-size:32px;min-height:76px":""}" data-value="${esc(c)}" onclick="selectChoice(this)">${esc(c)}</button>`).join("")}</div>`;
+ }
+ if(l.type==="text")return `<h3>${l.prompt}</h3>${listen}<div class="inputRow"><input id="textAnswer" autocomplete="off" placeholder="在這裡輸入 · Type here…"></div>`;
+ if(l.type==="trace")return `<h3>${l.prompt}</h3><p class="taskBilingualHint">沿著淡色字母描寫。Trace over the pale letters with your finger, stylus, or mouse.</p><div class="traceWrap"><div class="traceGhost">${esc(l.traceText||"A a")}</div><canvas id="traceCanvas"></canvas></div><div class="traceTools"><span>✍️ 慢慢寫就好 · Take your time</span><button class="secondary" onclick="clearTrace()">清除 · Clear</button></div>`;
+ if(l.type==="chant")return `<div class="chantCard"><div style="font-size:48px">${l.emoji||"🎵"}</div><div class="beat">${esc(l.prompt)}</div><div class="zhHint">跟著龍龍拍手念三次 · Clap and chant it three times.</div><button class="bigPrimary" style="margin-top:14px" onclick="playLessonAudio('${l.id}')">🔊 播放韻律 · Play chant</button></div>`;
+ if(l.type==="arrange"){
+   const tokens=rotateArray(String(l.answer).trim().split(/\s+/),2+(l.day||1));
+   return `<h3>${l.prompt}</h3><div id="arrangeZone" class="arrangeZone empty"></div><div class="vocabChips">${tokens.map(t=>`<button class="arrangeChip" data-word="${esc(t)}" onclick="addArrangeWord(this)">${esc(t)}</button>`).join("")}</div><button class="secondary" style="margin-top:10px" onclick="resetArrange()">↺ 重來 · Reset</button>`;
+ }
+ if(l.type==="speak")return `<h3>${l.prompt}</h3>${listen}<div class="recordBox"><b>🎤 口說錄音室 · Speaking studio</b><p style="color:var(--muted);margin:7px 0">先聽範例，再按錄音。系統會在錄音時嘗試同步辨識文字；就算瀏覽器無法轉錄，只要錄音成功也可以完成任務。 Listen first, then record. Live transcription will be attempted automatically; a successful recording can still pass even if transcription is unavailable.</p><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="bigPrimary" id="recordBtn" onclick="toggleRecording()">🎙️ 開始錄音 · Record</button><button class="secondary" onclick="startRecognition(false)">📝 再試一次轉錄 · Retry transcription</button><button class="secondary" onclick="markSpoken()">✓ 我說完了 · I said it</button></div><div id="recordStatus" style="margin-top:10px;color:var(--muted)"></div><div id="speechResult" style="margin-top:8px;color:var(--muted)"></div><div id="recordPlayback"></div></div>`;
+}
+let traceHasInk=false,traceDrawing=false,traceCtx=null;
+function setupTraceCanvas(){
+ const canvas=document.getElementById("traceCanvas");if(!canvas)return;
+ canvas.width=Math.max(300,canvas.clientWidth);canvas.height=Math.max(180,canvas.clientHeight);
+ traceCtx=canvas.getContext("2d");traceCtx.lineWidth=9;traceCtx.lineCap="round";traceCtx.lineJoin="round";traceCtx.strokeStyle="#7c3aed";
+ function pos(e){const r=canvas.getBoundingClientRect();return {x:(e.clientX-r.left)*canvas.width/r.width,y:(e.clientY-r.top)*canvas.height/r.height}}
+ canvas.onpointerdown=e=>{traceDrawing=true;traceHasInk=true;canvas.setPointerCapture?.(e.pointerId);const p=pos(e);traceCtx.beginPath();traceCtx.moveTo(p.x,p.y);e.preventDefault()};
+ canvas.onpointermove=e=>{if(!traceDrawing)return;const p=pos(e);traceCtx.lineTo(p.x,p.y);traceCtx.stroke();e.preventDefault()};
+ canvas.onpointerup=canvas.onpointercancel=e=>{traceDrawing=false;e.preventDefault()};
+}
+function clearTrace(){const c=document.getElementById("traceCanvas");if(c&&traceCtx)traceCtx.clearRect(0,0,c.width,c.height);traceHasInk=false}
+let arrangedWords=[];
+function addArrangeWord(btn){const word=btn.dataset.word;arrangedWords.push(word);btn.disabled=true;const z=document.getElementById("arrangeZone");if(z){z.classList.remove("empty");z.innerHTML=arrangedWords.map(x=>`<span class="vocabChip">${esc(x)}</span>`).join("")}}
+function resetArrange(){arrangedWords=[];document.querySelectorAll(".arrangeChip").forEach(b=>b.disabled=false);const z=document.getElementById("arrangeZone");if(z){z.innerHTML="";z.classList.add("empty")}}
+let selectedChoice=null, spokenOk=false, recognizedText="";
+function selectChoice(el){selectedChoice=el.dataset.value;document.querySelectorAll(".choice,.imageChoice").forEach(x=>{x.style.borderColor="";x.classList.remove("selected")});el.style.borderColor="var(--primary)";el.classList.add("selected")}
+function markSpoken(){spokenOk=true;const x=document.querySelector("#speechResult");if(x)x.innerHTML="✅ 很棒！已完成口說練習。 Great speaking practice!";}
+
+function normalize(s){return String(s||"").toLowerCase().replace(/[’']/g,"'").replace(/[^\p{L}\p{N}\s']/gu,"").replace(/\s+/g," ").trim()}
+async function checkTask(worldId,id,idx){
+ const l=(lessons[worldId]||[]).find(x=>x.id===id); let ok=false;
+ if(["letterintro","alphareviewintro","chant"].includes(l.type))ok=true;
+ if(l.type==="choice"||l.type==="imagechoice")ok=normalize(selectedChoice)===normalize(l.answer);
+ if(l.type==="trace")ok=traceHasInk;
+ if(l.type==="text"){
+   const v=document.querySelector("#textAnswer")?.value||"";
+   if(l.answerFree){
+     ok=v.trim().length>=5;
+     if(ok&&l.mustInclude)ok=normalize(v).includes(normalize(l.mustInclude));
+   }else if(l.answerAnyNumber)ok=/^\d+$/.test(v.trim());
+   else ok=normalize(v)===normalize(l.answer);
+ }
+ if(l.type==="arrange")ok=normalize(arrangedWords.join(" "))===normalize(l.answer);
+ if(l.type==="speak"){
+   // If the learner presses Check while recording is still active, stop first
+   // and wait until MediaRecorder has produced the audio Blob.
+   if(mediaRecorder&&mediaRecorder.state==="recording") await stopRecordingAndWait();
+   const hasRecording=!!(recordedBlob&&recordedBlob.size>0);
+   if(l.allowAnySpeech) ok=spokenOk || recognizedText.trim().split(/\s+/).filter(Boolean).length>=3 || hasRecording;
+   else if(l.allowContains) ok=spokenOk || normalize(recognizedText).includes(normalize(l.speechTarget)) || hasRecording;
+   else ok=spokenOk || similarity(normalize(recognizedText),normalize(l.speechTarget))>=0.55 || hasRecording;
+ }
+ const fb=document.querySelector("#feedback");
+ if(!ok){
+   let why="再試一次！看看圖片、再聽一次，慢慢來。 Try again.";
+   if(l.type==="trace")why="先用手指、觸控筆或滑鼠描寫字母，再按完成。 Trace the letter first.";
+   const extra=l.mustInclude?`<br><small>記得使用：<b>${esc(l.mustInclude)}</b></small>`:"";
+   fb.innerHTML=`<div class="speech" style="border-color:#ffc1ce;background:#fff2f5"><b>${why}</b>${extra}</div>`;return
+ }
+ if(l.type==="speak"&&recordedBlob&&state.saveSpeakingRecordings) await saveSpeakingRecording(worldId,l);
+ completeLesson(worldId,l,idx);
+}
+function similarity(a,b){
+ if(!a||!b)return 0; const A=new Set(a.split(" ")),B=new Set(b.split(" "));let hit=0;A.forEach(x=>{if(B.has(x))hit++});return hit/Math.max(A.size,B.size)
+}
+function completeLesson(worldId,l,idx){
+ const c=child(); if(!c.completedLessons.includes(l.id)){
+   c.completedLessons.push(l.id); c.coins+=l.coins; c.xp+=l.xp;
+   c.skills[l.skill]=Math.min(100,c.skills[l.skill]+Math.max(1,Math.round(l.xp/8)));
+   updateStreak(c); save();
+ }
+ const arr=lessons[worldId]||[],next=arr[idx+1],continueToday=next&&next.day===l.day;
+ const dayTasks=getDayTasks(worldId,l.day),doneToday=dayTasks.filter(t=>c.completedLessons.includes(t.id)).length;
+ if(continueToday){
+   document.querySelector("#modalRoot").innerHTML=`<div class="modalBackdrop"><div class="modal" style="text-align:center"><div class="confetti">⭐ ✨ ⭐</div><h2>完成一個任務！ · Task complete!</h2><p>龍龍說：<b>很好！今天還有 ${dayTasks.length-doneToday} 個小任務。</b></p><div style="font-size:20px;margin:18px"><span class="coin">+${l.coins} Coins</span> · <span class="xp">+${l.xp} XP</span></div>
+   <button class="bigPrimary" onclick='openNext("${worldId}","${next.id}",${idx+1})'>繼續今天課程 · Continue →</button></div></div>`;
+ }else{
+   const global=l.globalDay||1;
+   document.querySelector("#modalRoot").innerHTML=`<div class="modalBackdrop"><div class="modal" style="text-align:center"><div class="confetti">🎉 ⭐ 🌈 ⭐ 🎉</div><h2>今天完成！ · Daily session complete!</h2><p>龍龍說：<b>太棒了！今天的英文任務全部完成！</b></p>
+   <p style="color:var(--muted)">第 ${global}/${TOTAL_DAYS} 天完成。明天再來學下一課，也可以隨時複習。 · Day ${global} complete.</p>
+   <button class="bigPrimary" onclick="closeModal();navigate('home')">今天完成 · Finish ✓</button></div></div>`;
+ }
+ refreshMini();
+}
+function openNext(worldId,id,idx){const l=(lessons[worldId]||[]).find(x=>x.id===id);openLesson(worldId,l,idx)}
+function updateStreak(c){
+ const t=today(); if(c.lastLearn===t)return;
+ if(!c.lastLearn){c.streak=1}else{
+   const d1=new Date(c.lastLearn), d2=new Date(t), diff=(d2-d1)/86400000;
+   c.streak=diff<=1.1?c.streak+1:1;
+ } c.lastLearn=t;
+}
+function closeModal(){if(mediaRecorder&&mediaRecorder.state==="recording")mediaRecorder.stop();stopActiveRecognition();document.querySelector("#modalRoot").innerHTML=""}
+function speak(text){if("speechSynthesis"in window){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="en-US";u.rate=.82;speechSynthesis.speak(u)}else alert("Speech playback is not supported in this browser.")}
+async function playLessonAudio(id){
+ const path=state.audioOverrides?.[id];if(path&&fbStorage&&fbUser){try{let url=audioCache[path];if(!url){url=await fbStorage.ref(path).getDownloadURL();audioCache[path]=url}const a=new Audio(url);await a.play();return}catch(e){console.warn(e)}}
+ const text=LISTENING_TEXT[id];if(text)speak(text);
+}
+async function uploadLessonAudio(){
+ if(!fbUser||!fbStorage){alert("Connect and sign in to Firebase first.");return}
+ const lessonId=document.querySelector("#audioLessonSelect")?.value,file=document.querySelector("#audioFileInput")?.files?.[0];if(!lessonId||!file){alert("Choose a lesson and an audio file.");return}
+ try{const safe=file.name.replace(/[^\w.\-]/g,"_");const path=`users/${fbUser.uid}/pronunciation/${lessonId}/${Date.now()}_${safe}`;await fbStorage.ref(path).put(file,{contentType:file.type||"audio/mpeg"});state.audioOverrides[lessonId]=path;save();alert("Pronunciation audio uploaded.");renderParent()}catch(e){alert("Audio upload failed: "+e.message)}
+}
+function stopActiveRecognition(){
+ if(speechRecognitionActive&&speechRecognition){
+   try{speechRecognition.stop()}catch(e){}
+ }
+}
+function stopRecordingAndWait(){
+ if(!mediaRecorder||mediaRecorder.state!=="recording") return Promise.resolve(recordedBlob);
+ if(recordingStopPromise){try{mediaRecorder.stop()}catch(e){}return recordingStopPromise}
+ recordingStopPromise=new Promise(resolve=>recordingStopResolve=resolve);
+ try{mediaRecorder.stop()}catch(e){recordingStopResolve?.(recordedBlob)}
+ return recordingStopPromise;
+}
+async function toggleRecording(){
+ if(mediaRecorder&&mediaRecorder.state==="recording"){
+   await stopRecordingAndWait();
+   return;
+ }
+ if(!navigator.mediaDevices?.getUserMedia){alert("Microphone recording is not supported in this browser.");return}
+ try{
+   const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+   recordChunks=[];recognizedText="";spokenOk=false;recordedBlob=null;
+   if(recordedUrl){URL.revokeObjectURL(recordedUrl);recordedUrl=null}
+   mediaRecorder=new MediaRecorder(stream);recordingStartedAt=Date.now();
+   recordingStopPromise=new Promise(resolve=>recordingStopResolve=resolve);
+   mediaRecorder.ondataavailable=e=>{if(e.data.size)recordChunks.push(e.data)};
+   mediaRecorder.onstop=()=>{
+     stream.getTracks().forEach(t=>t.stop());
+     stopActiveRecognition();
+     recordedBlob=new Blob(recordChunks,{type:mediaRecorder.mimeType||"audio/webm"});
+     if(recordedBlob.size>0){
+       spokenOk=true;
+       recordedUrl=URL.createObjectURL(recordedBlob);
+     }
+     const p=document.querySelector("#recordPlayback"),x=document.querySelector("#recordStatus"),b=document.querySelector("#recordBtn");
+     if(p&&recordedUrl)p.innerHTML=`<audio class="audioPlayer" controls src="${recordedUrl}"></audio>`;
+     if(x)x.innerHTML=recordedBlob.size>0
+       ? `✅ 錄音完成 · Recording saved (${Math.max(1,Math.round((Date.now()-recordingStartedAt)/1000))} sec). <b>就算沒有轉錄文字，也可以按「檢查答案」。</b>`
+       : `⚠️ 沒有收到錄音內容，請再錄一次。 No audio was captured; please record again.`;
+     if(b)b.textContent="🎙️ 再錄一次 · Record again";
+     const resolve=recordingStopResolve;recordingStopResolve=null;recordingStopPromise=null;resolve?.(recordedBlob);
+   };
+   mediaRecorder.start();
+   const b=document.querySelector("#recordBtn"),x=document.querySelector("#recordStatus");
+   if(b)b.innerHTML='<span class="recordPulse"></span>停止錄音 · Stop recording';
+   if(x)x.textContent="🎙️ 錄音中… 請自然說話。 Recording… speak naturally.";
+   // Web Speech cannot transcribe an already-recorded Blob. Start recognition
+   // at the same time as recording so supported browsers can capture live speech.
+   setTimeout(()=>startRecognition(true),180);
+ }catch(e){alert("Microphone permission was not granted: "+e.message)}
+}
+function startRecognition(auto=false){
+ const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+ const x=document.querySelector("#speechResult");
+ if(!SR){
+   if(x)x.innerHTML="ℹ️ 這個瀏覽器不支援語音轉錄，但錄音成功後仍可完成任務。 Transcription is unavailable in this browser, but a successful recording will still pass.";
+   return;
+ }
+ if(speechRecognitionActive)return;
+ try{
+   const r=new SR();speechRecognition=r;speechRecognitionActive=true;
+   r.lang="en-US";r.interimResults=true;r.continuous=false;r.maxAlternatives=1;
+   if(x)x.innerHTML=auto?"🎧 正在同步辨識… · Listening while you record…":"🎧 正在聽… · Listening…";
+   r.onresult=e=>{
+     let finalText="",interim="";
+     for(let i=e.resultIndex;i<e.results.length;i++){
+       const t=e.results[i][0].transcript;
+       if(e.results[i].isFinal)finalText+=t;else interim+=t;
+     }
+     if(finalText.trim())recognizedText=(recognizedText+" "+finalText).trim();
+     const shown=(recognizedText+" "+interim).trim();
+     if(x&&shown)x.innerHTML=`📝 我聽到 · I heard: <b>${esc(shown)}</b>`;
+   };
+   r.onerror=e=>{
+     if(x)x.innerHTML=`ℹ️ 無法完成自動轉錄 (${esc(e.error||"speech error")})。<b>如果錄音成功，仍然可以完成任務。</b> · Transcription failed, but a saved recording can still pass.`;
+   };
+   r.onend=()=>{speechRecognitionActive=false;speechRecognition=null};
+   r.start();
+ }catch(e){
+   speechRecognitionActive=false;speechRecognition=null;
+   if(x)x.innerHTML="ℹ️ 無法啟動轉錄，但錄音成功後仍可完成任務。 Transcription could not start, but a successful recording will still pass.";
+ }
+}
+async function saveSpeakingRecording(worldId,l){
+ if(!fbUser||!fbStorage)return;try{const id=`${Date.now()}_${state.activeChild}_${l.id}`,path=`users/${fbUser.uid}/speaking/${state.activeChild}/${id}.webm`;await fbStorage.ref(path).put(recordedBlob,{contentType:recordedBlob.type||"audio/webm"});state.speakingRecordings.push({childId:state.activeChild,childName:child().name,worldId,lessonId:l.id,lessonTitle:l.title,transcript:recognizedText||"",storagePath:path,createdAt:new Date().toISOString()});state.speakingRecordings=state.speakingRecordings.slice(-60);save()}catch(e){console.warn("Speaking upload failed",e)}
+}
+async function playCloudRecording(path,targetId){if(!fbStorage||!fbUser)return;try{let url=audioCache[path];if(!url){url=await fbStorage.ref(path).getDownloadURL();audioCache[path]=url}const el=document.getElementById(targetId);if(el)el.innerHTML=`<audio class="audioPlayer" controls autoplay src="${url}"></audio>`}catch(e){alert("Could not play recording: "+e.message)}}
+function toggleSpeakingSave(){state.saveSpeakingRecordings=!state.saveSpeakingRecordings;save();renderParent()}
+
+function submitChore(id){
+ const c=child(); if(!c.pendingChores.includes(id))c.pendingChores.push(id);save();renderQuests();
+}
+function approveChore(id){
+ const c=child(),q=state.chores.find(x=>x.id===id);if(!q)return;
+ c.pendingChores=c.pendingChores.filter(x=>x!==id);c.coins+=q.coins;c.completedChores[today()]=(c.completedChores[today()]||[]).concat(id);save();renderParent();refreshMini();
+}
+function rejectChore(id){child().pendingChores=child().pendingChores.filter(x=>x!==id);save();renderParent()}
+function setGoal(id){child().goal=id;save();renderRewards()}
+function buyReward(id){
+ const c=child(),r=rewards.find(x=>x.id===id);if(!r||c.coins<r.price)return;
+ if(!confirm(`Redeem ${r.name} for ${r.price} coins?`))return;
+ c.coins-=r.price;state.rewardClaims.push({child:c.name,reward:r.name,price:r.price,time:new Date().toISOString(),status:"Needs parent fulfillment"});save();renderRewards();refreshMini();
+ alert("Reward requested! Ask a parent to check the Parent Dashboard.");
+}
+function switchChild(id){state.activeChild=id;save();refreshMini();renderParent()}
+function addChild(){
+ if(!fbUser){showLoginGate("Please sign in to the family account first.");return}
+ const name=prompt("孩子名字 · Child name or nickname:");if(!name)return;const id="child_"+Date.now();
+ state.children[id]={...emptyChild(),name,avatar:"🧒"};
+ state.activeChild=id;state.familyInitialized=true;save();refreshMini();renderParent();
+}
+function changePin(){const p=prompt("New 4-digit parent PIN:");if(/^\d{4}$/.test(p)){state.parentPin=p;save();alert("PIN updated.")}else if(p)alert("Please use exactly 4 digits.")}
+function exportData(){
+ const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="linguaquest-backup.json";a.click();URL.revokeObjectURL(a.href);
+}
+function resetApp(){if(confirm("Reset local LinguaQuest data? Cloud data is not deleted.")){localStorage.removeItem("linguaquest-state");location.reload()}}
+function refreshMini(){const c=child();const a=document.querySelector("#sideAvatar"),n=document.querySelector("#sideName"),l=document.querySelector("#sideLevel");if(a)a.textContent=c.avatar;if(n)n.textContent=c.name;if(l)l.textContent=levelName(c.xp)}
+
+
+Object.assign(window,{firebaseLogin,cloudSignOut,chooseSetupAvatar,createFirstChild});
+
+hideMainApp();
+showConnecting();
+initFirebase();
+</script>
+</body>
+</html>
